@@ -1,0 +1,26 @@
+Id	Description	Qty	Unit	Designators	Manufacturer	MPN
+1	Cable, copper, TXL insulated, 2 x 0.3 mm²	0.01	m	W3e_GND2		
+2	Cable, copper, TXL insulated, 3 x 0.3 mm²	0.6	m	W2_GND_PWR, W3d_GND_PWR		
+3	Cable, copper, TXL insulated, 32 x 0.3 mm²	0.05	m	W1		
+4	Cable, copper, TXL insulated, twisted pair, 2 x 0.3 mm²	4.05	m	W2_B2_twisted, W2_B_twisted, W2_C_twisted, W2_E_twisted, W2_G_twisted, W2_I_twisted, W2_M_twisted, W2_P_twisted, W3_twisted, W3b_twisted, W3c_twisted		
+5	Connector, 3-pin, female, 3 pins	4		CAN_selector, CAN_selector2, CAN_selector3, GND_PWR_f	Star	ST1803-0.7-21
+6	Connector, 3-pin, male, 3 pins	9		GND_PWR_m	Star	ST1803-0.7-11
+7	Connector, 36-pin, female, 36 pins	1		CCU_2365978_2	TE	2365978-2
+8	Connector, 36-pin, male, 36 pins	1		CCU_2365978_2_MALE_MATE		wire-to-wire male mate to 2365978-2
+9	Connector, OBD2, female, 16 pins	1		OBD2	Molex	51115-1611
+10	Connector, Splice, 1 pins	1		SGND		
+11	Crimp	92		CAN_selector, CAN_selector2, CAN_selector3, CCU_2365978_2, CCU_2365978_2_MALE_MATE, GND_PWR_f, GND_PWR_m		
+12	Crimp, OBD2 Terminal	10		OBD2	Molex	50420-8000
+13	Retainer, OBD2 Retainer	10		OBD2	Molex	51117-1605
+14	Sleeve, Tesa 3/4" tape (IB151608)	0.65	m	W1, W2_GND_PWR, W3d_GND_PWR		
+15	heat-shrink label, B-CAN	1		W2_B_twisted		
+16	heat-shrink label, B2-CAN (IF PRESENT)	1		W2_B2_twisted		
+17	heat-shrink label, C-CAN	1		W2_C_twisted		
+18	heat-shrink label, E-CAN	1		W2_E_twisted		
+19	heat-shrink label, G-CAN/P2-CAN	1		W2_G_twisted		
+20	heat-shrink label, I-CAN	1		W2_I_twisted		
+21	heat-shrink label, M-CAN	1		W2_M_twisted		
+22	heat-shrink label, P-CAN	1		W2_P_twisted		
+23	heat-shrink label, SELECT BUS	1		W3_twisted		
+24	heat-shrink label, SELECT BUS2	1		W3b_twisted		
+25	heat-shrink label, SELECT BUS3	1		W3c_twisted		
