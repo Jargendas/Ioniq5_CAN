@@ -1,12 +1,12 @@
 > Car, give me the grace to accept with serenity the things that cannot be changed, courage to build the buttons that Hyundai will never offer as an update, and the wisdom to distinguish the one from the other. 
 
 # Purpose 
-We preparing to sell a fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
+We have opened pre-orders on fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
 Major contributors to date:
 - [Liz](https://github.com/L1Z3): firmware, CAN reverse-engineering
+- [Roy](https://github.com/dragz): CAN reverse-engineering, prototyping
+- [Corbin](https://www.theioniqguy.com): testing, strategy, marketing, retail, 3D printing
 - [Tyler](https://github.com/tylerharvey): glue guy/productizing
-- [Corbin](https://www.theioniqguy.com): testing, strategy, marketing, retail
-- [Roy](https://github.com/dragz): CAN reverse-engineering
 - [Tichael](https://github.com/Tichael): technical review
 - [Kenny](https://www.reddit.com/user/KennyBS167/submitted/): technical review
 - [Thomas](https://www.ioniqforum.com/members/thomas212.6422/): CAN reverse-engineering
@@ -14,6 +14,9 @@ Major contributors to date:
 Other repositories for this project: 
 - [manual preconditioning firmware repository](https://github.com/L1Z3/wicant-i-precondition)
 - [known CAN messages in DBC format](https://github.com/dragz/egmpdbc)
+
+# How to Buy
+Pre-orders are currently open for fulfillment starting in late June or early July. To purchase in the US, visit [ElectroniqButtons.com](https://www.electroniqbuttons.com). To purchase outside the US, buy on [Etsy](https://www.etsy.com/listing/4498059167/ioniq-56ev6gv60-manual-preconditioning). Etsy does not support HTML, so the product pages are much clearer at [ElectroniqButtons.com](https://www.electroniqbuttons.com). It's advisable to browse there first. If you have any questions not answered on the product pages, please ask us at [info@electroniqbuttons.com](mailto:info@electroniqbuttons.com). If you do make a purchase, please fill out [this email form](https://www.etsy.com/listing/4498059167/ioniq-56ev6gv60-manual-preconditioning) so we know which car(s) you have.
 
 # Basic Explanation
 This kit installs just below the car's head unit, in between the head unit and the rest of the car. That allows our microcontroller to duplicate or override any requests the head unit makes of the rest of the car. That allows us to request that the battery management unit initiates preconditioning in exactly the same way the head unit makes that request when using the built-in navigation.
