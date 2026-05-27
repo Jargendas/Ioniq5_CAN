@@ -14,6 +14,7 @@ Major contributors to date:
 Other repositories for this project: 
 - [manual preconditioning firmware repository](https://github.com/L1Z3/wicant-i-precondition)
 - [known CAN messages in DBC format](https://github.com/dragz/egmpdbc)
+- [ESP-based DIY build](https://github.com/dragz/ironiq)
 
 # How to Buy
 Pre-orders are currently open for fulfillment starting in late June or early July. To purchase in the US, visit [ElectroniqButtons.com](https://www.electroniqbuttons.com). To purchase outside the US, buy on [Etsy](https://www.etsy.com/listing/4498059167/ioniq-56ev6gv60-manual-preconditioning). Etsy does not support HTML, so the product pages are much clearer at [ElectroniqButtons.com](https://www.electroniqbuttons.com). It's advisable to browse there first. If you have any questions not answered on the product pages, please ask us at [info@electroniqbuttons.com](mailto:info@electroniqbuttons.com). If you do make a purchase, please fill out [this email form](https://www.etsy.com/listing/4498059167/ioniq-56ev6gv60-manual-preconditioning) so we know which car(s) you have.
