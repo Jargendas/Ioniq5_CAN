@@ -43,26 +43,32 @@ Videos of the button in action:
 - [me triggering preconditioning with star button using Liz's firmware](https://youtu.be/1I849mg2cQ4?si=igR4gxgVAqW1klbn)
 
 # Current Status
-We have successfully tested manual preconditioning on 3 different microcontrollers, on 3 Ioniq 5s from 3 different markets, on a US Ioniq 6, and will shortly test on a Canadian EV6. Inventory will be available to ship to beta testers sometime in June. A link to Shopify and Etsy stores will be added here soon for beta test orders. 
+We have successfully tested manual preconditioning on 3 different microcontrollers, on 3 Ioniq 5s from 3 different markets, on a US Ioniq 6, and will shortly test on a Canadian EV6. Inventory will be available to ship to beta testers sometime in late June. 
+   - ![selectable CAN harnesses](./wiring_harness/photos/selectable_CAN_bulk.jpg)
+   - ![head unit harnesses](./wiring_harness/photos/head_unit_bulk.jpg)
 
 We are shipping Liz's [WiCAN firmware](https://github.com/L1Z3/wicant-i-precondition) on stock WiCAN-OBD-C3s for the beta run. 
 
-Roy is gathering known E-GMP CAN bus information in [DBC files](https://github.com/dragz/egmpdbc).
+Roy is gathering known E-GMP CAN bus information in [DBC files](https://github.com/dragz/egmpdbc) and has [prototyped a UI](https://github.com/dragz/ironiq) based on a Lilygo T-Display S3.
 
 # History
 1. CAN messages:
    - The necessary CAN messages to initiate preconditioning on 2021-2024 E-GMP cars were isolated by dragz and I in early March 2026. Roy plans to host a DBC file to collect known CAN frames.
 2. microcontroller: 
    - We are using a low-cost prepackaged microcontroller to piggyback on existing work and open-source code
+   - Beta test units will use a stock WiCAN-OBD-C3 initially, and receive a customized WiCAN later
+   - The customized WiCAN has been designed and is in testing now
 3. firmware:
    - Liz and I (mostly Liz) have [working firmware](https://youtu.be/1I849mg2cQ4?si=igR4gxgVAqW1klbn) for one prototype microcontroller [here](https://github.com/tylerharvey/animatronic_panda)
    - Liz successfully ported the logic to two branches of [WiCAN firmware](https://github.com/L1Z3/wicant-i-precondition)
 4. wiring harness: 
-   - First inventory has been ordered from one vendor
-   - ![samples](./wiring_harness/first_samples.png)
-   - A sample from a separate vendor is on the way to validate a backup option
+   - First inventory has been ordered from one wiring harness vendor
+   - ![selectable CAN harnesses](./wiring_harness/photos/selectable_CAN_bulk.jpg)
+   - ![head unit harnesses](./wiring_harness/photos/head_unit_bulk.jpg)
+   - We have a sample from a separate vendor as a backup in case of problems
 5. user interface:
    - Liz designed logic to [activate and deactivate](https://youtu.be/3RfnEo8Xc0o?si=r9ix7-klKYVObkZd) preconditioning on star button press; other user interface options may be available in the future
+   - We are actively exploring physical button add-ons
 
 # Contents
 Structure of this repository:
