@@ -1,0 +1,202 @@
+# metadata:
+  # name: Hyundai/Kia M-CAN to OBD dongle
+
+connectors:
+  ICU_H_5011_0137_2:
+    type: 32-pin
+    subtype: female
+    pinlabels: [NC, NC, NC, NC, NC, NC, HR, NC, NC, NC, NC, NC, NC, NC, NC, GND, E-CAN (HIGH), E-CAN (LOW), P-CAN (HIGH), P-CAN (LOW), C-CAN (HIGH), C-CAN (LOW), I-CAN (HIGH), I-CAN (LOW), D-CAN (HIGH), D-CAN (LOW), B-CAN (HIGH), B-CAN (LOW), G-CAN (HIGH), G-CAN (LOW), M-CAN (HIGH), M-CAN (LOW)]
+    manufacturer: KSC
+    mpn: 5011-0137-2
+    image: 
+      src: ./connector_imgs/ICU-H_front.png
+      caption: pinout from <b>front</b> (mating side) of female connector
+    additional_components:
+      - type: Crimp
+        qty: 18
+      #   subtype: 020 Terminal
+      #   manufacturer: TE Connectivity
+      #   mpn: 2219299-1 MALE MATE
+      # - type: Crimp
+      #   subtype: 060 Terminal, 0.3mm^2 wire
+      #   qty: 4
+      #   manufacturer: TE Connectivity
+      #   mpn: 2109006-1 MALE MATE
+      # - type: Crimp
+      #   subtype: 060 Terminal, 1.25mm^2 wire
+      #   qty: 4
+      #   manufacturer: TE Connectivity
+      #   mpn: 2109006-3 MALE MATE
+
+  ICU_H_MALE_MATE:
+    type: 32-pin
+    subtype: male
+    pinlabels: [NC, NC, NC, NC, NC, NC, HR, NC, NC, NC, NC, NC, NC, NC, NC, GND, E-CAN (HIGH), E-CAN (LOW), P-CAN (HIGH), P-CAN (LOW), C-CAN (HIGH), C-CAN (LOW), I-CAN (HIGH), I-CAN (LOW), D-CAN (HIGH), D-CAN (LOW), B-CAN (HIGH), B-CAN (LOW), G-CAN (HIGH), G-CAN (LOW), M-CAN (HIGH), M-CAN (LOW)]
+    mpn: Wire-to-wire male mate to KSC 5011-0137-2
+    additional_components:
+      - type: Crimp
+        qty: 18
+      # - type: Crimp
+      #   subtype: 020 Terminal
+      #   qty: 11
+      #   manufacturer: TE Connectivity
+      #   mpn: 2219299-1 MALE MATE
+      # - type: Crimp
+      #   subtype: 060 Terminal, 0.3mm^2 wire
+
+
+  50_pin_m:
+    type: 50-pin
+    pincount: 18
+    subtype: male
+
+  50_pin_f_breakout:
+    type: 50-pin
+    pincount: 18
+    subtype: female
+
+  DuPont_1pin:
+    type: 1-pin
+    pincount: 1
+    subtype: male
+
+  Splice:
+    type: splice
+    pinlabels: [5V_PWR]
+
+cables:
+  W1:
+    type: insulated conductive wire (any)
+    gauge: 0.2 mm2
+    length: 0.05
+    # colors: [BGRD, BNRD, WHRD, BGBK, BNBK, WHBK, OG, GNOG, YEOG, PK, RD, BKBG, BK]
+    wirecount: 18
+    shield: false
+
+  W2:
+    type: insulated conductive wire (any)
+    gauge: 0.2 mm2
+    length: 0.05
+    # colors: [BGRD, BNRD, WHRD, BGBK, BNBK, WHBK, OG, GNOG, YEOG, PK, RD, BKBG, BK]
+    wirecount: 1
+    shield: false
+
+connections:
+  - 
+    - ICU_H_5011_0137_2: [7,16,17-32]
+    - W1.: [1-18]
+    - 50_pin_m.: [1-18]
+    - ==>
+    - 50_pin_f_breakout.: [1-18]
+    - W2.
+    - DuPont_1pin.
+  -
+    - ICU_H_MALE_MATE: [7,16,17-32]
+    - W1.: [1-18]
+    - 50_pin_m.: [1-18]
+    - ==>
+    - 50_pin_f_breakout.: [1-18]
+    - W1.: [1-18]
+    - Splice: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  -
+    - Splice: [1]
+    - W2.: [1]
+    - DuPont_1pin.: [1]
+#
+ #  -
+ #    - AVN_M05-B_F: [1, 2, 6, 14, 15, 19, 22, 23, 24, 32, 34, 35]
+ #    - W3_b: [1-10, 12-13]
+ #    - AVN_M05-B_MALE_MATE: [1, 2, 6, 14, 15, 19, 22, 23, 24, 32, 34, 35]
+ #  -
+ #    - AVN_M05-B_F: [11, 13]
+ #    - W1_a: [1,2]
+ #    - [S11, S13]
+ #    - W2_a_twisted: [1, 3]
+ #  -
+ #    - AVN_M05-B_F: [33]
+ #    - W1_b: [1]
+ #    - [S33]
+ #    - W2_a_twisted: [2]
+ #  -
+ #    - W2_a_twisted: [1,2]
+ #    - OBD2: [9, 1]
+ #  -
+ #    - AVN_M05-B_F: [10,12]
+ #    - W3_a: [1, 3]
+ #    - AVN_M05-B_MALE_MATE: [10, 12]
+ #  -
+ #    - [S11, S13]
+ #    - W3_a: [2, 4]
+ #    - AVN_M05-B_MALE_MATE: [11, 13]
+ #  -
+ #    - [S33]
+ #    - W3_b: [11]
+ #    - AVN_M05-B_MALE_MATE: [33]
+ #  # -
+ #  #   - AVN_M05-B_F: [7, 20] 
+ #  #   - W2_b_twisted_twisted: [1, 2]
+ #  #   - [SMH1, SML1]
+ #  #   - W2_f_twisted: [1,2]
+ #  #   - shunt_male: [1, 3] 
+ #  #   - ==>
+ #  #   - shunt_cap_female: [1, 3]
+ #  # -
+ #  #   - shunt_cap_female: [2]
+ #  #   - W2_i_twisted: [1]
+ #  #   - shunt_cap_male: [2]
+ #  # - 
+ #  #   - shunt_cap_female: [1,3]
+ #  #   - W4_a: [1,2]
+ #  #   - cap_resistor_1: [1,2]
+ #  # - 
+ #  #   - shunt_cap_male: [1,3]
+ #  #   - W4_b: [1,2]
+ #  #   - cap_resistor_2: [1,2]
+##   -
+##     - AVN_M05-B_MALE_MATE: [7, 20] 
+##     - W2_a_twisted: [6, 7]
+##     - switch: [3, 4] 
+ #  -
+ #    - [SMH1, SML1]
+ #    - W2_d_twisted: [1-2]
+ #    - OBD2: [13, 12]
+ #  -
+ #    - [SMH2, SML2]
+ #    - W2_e_twisted: [1-2]
+ #    - OBD2: [3, 11]
+ #  -
+ #    - W2_a_twisted: [3]
+ #    - SGND: [1]
+ #  -
+ #    - SGND: [1, 1]
+ #    - W2_h_twisted: [1,2]
+ #    - OBD2: [4,5]
+ #  - 
+ #    - [S7, S20]
+ #    - W2_c_twisted_twisted: [1, 2]
+ #    - [SMH2, SML2]
+ #    - W2_g_twisted: [1,2]
+ #    - shunt_female: [1, 3] 
+ #    - ==>
+ #    - shunt_cap_male: [1, 3]
+ #  -
+ #    - AVN_M05-B_F: [7, 20] 
+ #    - W2_b_twisted_twisted: [1, 2]
+ #    - [SMH1, SML1]
+ #    - W2_f_twisted: [1,2]
+ #    - shunt_male: [1, 3] 
+ #    - ==>
+ #    - shunt_cap_female: [1, 3]
+ #  -
+ #    - shunt_cap_female: [2]
+ #    - W2_i_twisted: [1]
+ #    - shunt_cap_male: [2]
+ #  - 
+ #    - shunt_cap_female: [1,3]
+ #    - W4_a: [1,2]
+ #    - cap_resistor_1: [1,2]
+ #  - 
+ #    - shunt_cap_male: [1,3]
+ #    - W4_b: [1,2]
+ #    - cap_resistor_2: [1,2]
+ # 
