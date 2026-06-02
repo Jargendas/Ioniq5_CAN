@@ -7,7 +7,7 @@ Major contributors to date:
 - [Roy](https://github.com/dragz): CAN reverse-engineering, prototyping
 - [Corbin](https://www.theioniqguy.com): testing, strategy, marketing, retail, 3D printing
 - [Tyler](https://github.com/tylerharvey): glue guy/productizing
-- [Tichael](https://github.com/Tichael): technical review
+- [Michaël](https://github.com/Tichael): technical review
 - [Kenny](https://www.reddit.com/user/KennyBS167/submitted/): technical review
 - [Thomas](https://www.ioniqforum.com/members/thomas212.6422/): CAN reverse-engineering
 
@@ -70,6 +70,20 @@ Roy is gathering known E-GMP CAN bus information in [DBC files](https://github.c
    - Liz designed logic to [activate and deactivate](https://youtu.be/3RfnEo8Xc0o?si=r9ix7-klKYVObkZd) preconditioning on star button press; other user interface options may be available in the future
    - We are actively exploring physical button add-ons
 
+# Business Info
+In the spirit of keeping things open, here's some basic info about the structure of the business to date. Electroniq Buttons Boutique LLC is a US sole-member LLC fully owned by Tyler. Handshake agreements are in place to pay significant contributors from the net margin (and more of these are possible if you want to make a significant and sustained contribution). This structure was chosen for a few reasons:
+- Tyler was most interested in professionally-made wiring harnesses and prebuilt microcontrollers, which are the two largest costs, and had the available capital to do this
+- US LLCs are relatively easy to start; nonprofits and other structures require a lot more work on guiding documents and potentially a board of directors
+- None of us expect to make big bucks; this structure is subject to change if we're very wrong about this
+
+As of early June, the business has incurred roughly the following costs:
+- at least $1150 in prototype/test expenses (e.g. WiCANs, pandas, wiring harness samples, handmade wiring harnesses, etc.)
+- $7400 for inventory, including WiCAN originals (the largest cost), two wiring harnesses at the minimum order quantity, installation tools, and packaging materials; this includes the cost of development of the customized WiCAN, bundled to protect others' business details, but does not include the cost to produce or ship the customized WiCAN yet
+- $500 in miscellaneous business expenses 
+- $500 in various shipping costs
+
+Roy, Liz and Tyler have committed several hundred hours in labor to date, and Michaël has also put in a lot of work on a related project that may be merged in. If all current inventory sold at currently listed prices on the Shopify or Etsy shops, after platform fees but before any taxes, the business would see about $14,500 in revenue. As we still will order customized WiCANs (expected to cost about $4000 for all beta test kits), this leaves about $1000 available to pay people for labor on the first inventory and break even. We hope to eventually make minimum wage on this project, but it may take some time! 
+
 # Contents
 Structure of this repository:
 ## 1. minimal working CAN messages
@@ -92,11 +106,25 @@ Written guides are available for:
 # CAN Reverse Engineering Tips/Resources
 One or two good logs is far more valuable than 10 questionable logs. I had much better success after identifying my best logs and cleaning them (e.g. out-of-range timestamps from buffered data). Think of log acqusition as a scientific experiment: you want a test and a control condition. In the case of preconditioning, that meant setting the nav to a charger nearby vs. to a school nearby. You can also tag logs with known messages, such as the star button. If all else fails, plotting temporal changes in a large range of messages can offer a lot of insight and help identify interesting frame IDs.
 
-Resources:
-- [canbus tools](https://github.com/ajouatom/canbus-tools): a better/longer list of resources
+General CAN resources:
+- [CSS electronics](https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial): many helpful introductory articles on CAN
+- [canbus tools](https://github.com/iDoka/awesome-canbus): a better/longer list of resources
 - [OVMS DBC file documentation](https://docs.openvehicles.com/en/latest/components/vehicle_dbc/docs/dbc-primer.html): basic explanation of the structure of a DBC file
 - [standalone Cabana](https://github.com/deanlee/openpilot-cabana): fork of openpilot Cabana for general-purpose CAN reverse-engineering
 - [kvaser.com](https://kvaser.com/): login needed but various CAN resources available free
 
+Related projects:
+- [manual preconditioning firmware repository](https://github.com/L1Z3/wicant-i-precondition)
+- [known CAN messages in DBC format](https://github.com/dragz/egmpdbc)
+- [ESP-based DIY build](https://github.com/dragz/ironiq)
+- [another Ioniq 5 CAN reverse engineering project](https://github.com/Sterlingarcher2525/ioniq5-can)
+- [original Ioniq CAN reverse engineering](https://github.com/philipkocanda/ioniq-can) 
+- [Hyundai Kona VESS reverse engineering](https://github.com/ereuter/vess)
+
 # Contributing
 Feel free to join the conversation on Ioniqforum or the [E-GMP discord](https://discord.gg/HmwyXv73Br). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
+## Rebatable Contributions from Customers
+The following contributions are welcome and potentially eligible for a rebate:
+- Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions (note: Ioniq 6 and EV6 guides are in progress now)
+- Accepted pull request to [firmware repository](https://github.com/L1Z3/wicant-i-precondition) or [DBC repository](https://github.com/dragz/egmpdbc)
+- Prototype physical button (note: Michaël is currently working on this; get in touch with us to avoid duplication of effort; this probably goes beyond a rebate)
