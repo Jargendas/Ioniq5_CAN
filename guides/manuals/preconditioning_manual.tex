@@ -108,6 +108,8 @@ Unfortunately, these are limits that are built into battery management unit firm
   \item[A:] With the beta version, this is not possible. This will be fixed with the customized WiCAN.
   \item[Q:] Will a navigation update affect my ability to use the kit?
   \item[A:] It's highly unlikely, as the kit doesn't depend on communication with the head unit. A battery management unit update could (for instance, the update that enabled preconditioning retroactively on early Ioniq 5s), but we believe those must be done by dealerships. However, we can't promise with 100\% certainty that a navigation update will not affect the functionality of the kit. In the off chance that this does happen, let us know and we will do our best to update logic to restore manual preconditioning functionality.
+  \item[Q:] Why the countdown? Why can't you just start preconditioning immediately upon button press?
+  \item[A:] The battery management unit (the ECU inside the battery that contains the BMS) has a built-in 60-second timeout after the initial preconditioning request. If the request stops before the 60-second timeout passes, preconditioning won't start. So we've tried to make this 60-second wait obvious and clear to the user.
   \item[Q:] Will you build me a new button?
   \item[A:] Maybe! Email us at \href{mailto:requests@electroniqbuttons.com}{requests@electronicbuttons.com} with your requests.
   \item[Q:] Your business is called `Electroniq Buttons Boutique'. Where are the physical buttons?
