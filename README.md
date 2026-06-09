@@ -40,7 +40,8 @@ We have prototype versions or better of all of the above on several platforms.
 
 Videos of the button in action:
 - [dragz triggering preconditioning from a laptop](https://youtu.be/vaBQV_6DW-M?si=8POdBs7m_WmN-vUu)
-- [me triggering preconditioning with star button using Liz's firmware](https://youtu.be/1I849mg2cQ4?si=igR4gxgVAqW1klbn)
+- [me triggering preconditioning with star button on a panda](https://youtu.be/1I849mg2cQ4?si=igR4gxgVAqW1klbn)
+- [Liz showing first UI](https://youtu.be/VzLoRYCNTqQ?si=Sd3lELZRXEixEHiz)
 
 # Current Status
 We have successfully tested manual preconditioning on 3 different microcontrollers, on 3 Ioniq 5s from 3 different markets, on a US Ioniq 6, and will shortly test on a Canadian EV6. Inventory will be available to ship to beta testers sometime in late June. 
@@ -63,8 +64,6 @@ Roy is gathering known E-GMP CAN bus information in [DBC files](https://github.c
    - Liz successfully ported the logic to two branches of [WiCAN firmware](https://github.com/L1Z3/wicant-i-precondition)
 4. wiring harness: 
    - First inventory has been ordered from one wiring harness vendor
-   - ![selectable CAN harnesses](./wiring_harness/photos/selectable_CAN_bulk.jpg)
-   - ![head unit harnesses](./wiring_harness/photos/head_unit_bulk.jpg)
    - We have a sample from a separate vendor as a backup in case of problems
 5. user interface:
    - Liz designed logic to [activate and deactivate](https://youtu.be/3RfnEo8Xc0o?si=r9ix7-klKYVObkZd) preconditioning on star button press; other user interface options may be available in the future
@@ -122,7 +121,7 @@ Related projects:
 - [Hyundai Kona VESS reverse engineering](https://github.com/ereuter/vess)
 
 # Contributing
-Feel free to join the conversation on Ioniqforum or the [E-GMP discord](https://discord.gg/HmwyXv73Br). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
+Feel free to join the conversation on [our Fluxer server](https://fluxer.gg/nfktDLSz). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
 ## Rebatable Contributions from Customers
 The following contributions are welcome and potentially eligible for a rebate:
 - Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions (note: Ioniq 6 and EV6 guides are in progress now)
