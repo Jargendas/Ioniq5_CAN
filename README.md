@@ -121,7 +121,7 @@ Related projects:
 - [Hyundai Kona VESS reverse engineering](https://github.com/ereuter/vess)
 
 # Contributing
-Feel free to join the conversation on [our Fluxer server](https://fluxer.gg/nfktDLSz). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
+Feel free to join the conversation on [our Fluxer server](https://fluxer.gg/w0OpDJjG). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
 ## Rebatable Contributions from Customers
 The following contributions are welcome and potentially eligible for a rebate:
 - Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions (note: Ioniq 6 and EV6 guides are in progress now)
