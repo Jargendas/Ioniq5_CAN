@@ -99,7 +99,9 @@ Unfortunately, these are limits that are built into battery management unit firm
   \item[Q:] What if I want to build this myself?
   \item[A:] Do it! Everything we've done is \href{https://github.com/tylerharvey/Ioniq5_CAN}{open-source}. Feel free to use the wiring harness diagram to build something yourself. The connectors are available on AliExpress. However, if you make a contribution to public knowledge in the form of a pull request to the \href{https://github.com/dragz/egmpdbc}{DBC file} or something else, rebates are available that will bring the net cost down to competitive-with-DIY pricing with a lot less labor.
   \item[Q:] Why can't this be a software update?
-  \item[A:] It could be. We have our guesses as to why Hyundai/Kia hasn't included this in a navigation update. If you  know how to \href{https://discord.gg/zyrngQ5qQ}{hack your head unit} and have found the CAN interface functions, you are welcome to add a manual preconditioning button to your head unit. However, distribution of hacked firmware is not possible at this time, so an aftermarket "update" would be difficult to make widely available.
+  \item[A:] It could be. We have our guesses as to why Hyundai/Kia hasn't included this in a navigation update. If you  know how to \href{https://discord.gg/zyrngQ5qQ}{hack your head unit} and have found the CAN interface functions, you are welcome to add \href{https://www.reddit.com/r/KiaEV6/comments/1jdd56u/comment/mid9xie/}{a manual preconditioning button to your head unit}. However, distribution of hacked firmware is not possible at this time, so an aftermarket "update" would be difficult to make widely available.
+  \item[Q:] Can I implement this on my Comma device?
+  \item[A:] We have tested this and don't believe it works. There appears to be no forwarding of preconditioning messages from the A or E CAN busses the Comma sits on to the M or G busses the BMU sits on.
   \item[Q:] Will this kill my ICCU?
   \item[A:] No.
   \item[Q:] Will this kill my 12V battery?
