@@ -100,7 +100,9 @@ I am also including the [source file](wiring_harness/M-CAN_dongle_shunt_caps_007
 Written guides are available for:
 - [basic use of the kit](guides/manuals/preconditioning_manual.pdf)
 - [harness mode switching](guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf)
-- [Ioniq 5 install](guides/cars/E-GMP_gen1/Ioniq5/head_unit_preconditioning_kit_install.pdf)
+- [Ioniq 5 install](guides/cars/E-GMP_gen1/Ioniq5/head_unit_preconditioning_kit_Ioniq5_install.pdf)
+- [Ioniq 6 install](guides/cars/E-GMP_gen1/Ioniq5/head_unit_preconditioning_kit_Ioniq6_install.pdf)
+- [EV6 install](guides/cars/E-GMP_gen1/Ioniq5/head_unit_preconditioning_kit_EV6_install.pdf)
 
 # CAN Reverse Engineering Tips/Resources
 One or two good logs is far more valuable than 10 questionable logs. I had much better success after identifying my best logs and cleaning them (e.g. out-of-range timestamps from buffered data). Think of log acqusition as a scientific experiment: you want a test and a control condition. In the case of preconditioning, that meant setting the nav to a charger nearby vs. to a school nearby. You can also tag logs with known messages, such as the star button. If all else fails, plotting temporal changes in a large range of messages can offer a lot of insight and help identify interesting frame IDs.
