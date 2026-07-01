@@ -126,6 +126,10 @@ Related projects:
 Feel free to join the conversation on [our Fluxer server](https://fluxer.gg/w0OpDJjG). PRs are welcome for install guide changes, harness requests, or CAN parsing tools.
 ## Rebatable Contributions from Customers
 The following contributions are welcome and potentially eligible for a rebate:
-- Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions (note: Ioniq 6 and EV6 guides are in progress now)
+- Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions:
+  - Document EV6 OBD mount location
+  - Document simpler EV6 trim steps
+  - Video EV6 install guide or documentation of any step
+- Translate technical documentation into your language, particularly for German, Korean, Spanish and French
 - Accepted pull request to [firmware repository](https://github.com/L1Z3/wicant-i-precondition) or [DBC repository](https://github.com/dragz/egmpdbc)
 - Prototype physical button (note: Michaël is currently working on this; get in touch with us to avoid duplication of effort; this probably goes beyond a rebate)
