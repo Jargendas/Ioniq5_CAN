@@ -67,6 +67,21 @@ This guide walks you through the steps needed to install the head unit precondit
 \section{Introduction}
   The purpose of this guide is to illustrate step-by-step instructions for installing the head unit preconditioning kit, or just the head unit man-in-the-middle (MITM) harness, shown in Figure \ref{subfig:overview:harness}. In section \ref{sect:1}, we describe the trim removal process to access the head unit. In section \ref{sect:2}, we describe the process of plugging in the harness. In section \ref{sect:3}, we show attachment of the OBD port and how to plug in the microcontroller. 
 
+Necessary tools:
+\begin{enumerate}
+  \item 10mm socket or adjustable wrench for 12V battery (not included)
+  \item Trim removal tools (included if selected)
+\end{enumerate}
+
+Kit components:
+\begin{enumerate}
+  \item Head unit harness
+  \item WiCAN
+  \item 70mm OBD mount bracket
+  \item 70mm double-sided tape (two pieces included for redundancy)
+  \item 4 zip ties
+\end{enumerate}
+  
 \section{Step 1: Remove 12V Negative Terminal} \label{sect:0}
 First, always disconnect the 12V battery before removing any electrical connectors! Removing a live electrical connector could cause a discharge and destroy a connector or ECU in your car.
 
@@ -173,7 +188,7 @@ Step-by-step instructions:
 \end{figure}
 
 \section{Step 5: Clean up} \label{sect:4}
-Reverse the trim removal steps. Make sure trim clips are aligned, and then firmly pop the trim panels back into place. Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. \href{https://meatpihq.github.io/wican-fw/config/wifi}{Change your WiCAN password!}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
+Reverse the trim removal steps. Make sure trim clips are aligned, and then firmly pop the trim panels back into place. Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. Change your WiCAN password: \href{https://meatpihq.github.io/wican-fw/config/wifi}{https://meatpihq.github.io/wican-fw/config/wifi}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
 % \appendix 
 \bibliographystyle{apsrev4-1}
 \bibliography{stemh_model}{}
