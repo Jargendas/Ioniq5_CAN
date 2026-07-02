@@ -44,6 +44,19 @@ def populate_dict_panda(dict_name, filename):
     dict_name['timestamps'] = np.loadtxt(filename,delimiter=',',dtype=float,skiprows=1, usecols=(4))
     dict_name['bus'] = np.loadtxt(filename,delimiter=',',dtype=np.uint8,skiprows=1, usecols=(0))
 
+def clean_bad_timestamps(dict_name):
+    diff = np.diff(dict_name['timestamps'])
+    mean_diff = diff.mean()
+    any_jump = np.nonzero(np.abs((diff-mean_diff)/mean_diff) > 2)[0]
+    drop = np.nonzero(diff < 0)[0]
+    print(f"Identified {len(drop)} drops in timestamp and {len(any_jump)} total timestamp jumps.")
+    if(len(drop) == 1):
+        split_index = drop[0]+1
+        timestamp_length = len(dict_name['timestamps'])
+        for key in dict_name.keys():
+            if(isinstance(dict_name.get(key),np.ndarray) and dict_name.get(key).shape[0] == timestamp_length):
+                dict_name[key] = dict_name[key][split_index:]
+
 def calculate_unique_message_id(dict_name):
     assert dict_name['messages'].shape[1] == 8
     dict_name['messages_unique_ids'] = np.zeros((dict_name['messages'].shape[0],),dtype=np.uint64)
@@ -112,13 +125,20 @@ def return_frame_IDs_muids_with_message_changes_in_timestamp_range(dict_name,tim
             for unique_muid in unique_muids:
                 if(unique_muid not in reject_muids):
                     indices = np.argwhere((dict_name['messages_unique_ids'] == unique_muid)*(dict_name['ids'] == frame_id))[:,0]
+                    other_muid_indices = np.argwhere((dict_name['messages_unique_ids'] != unique_muid)*(dict_name['ids'] == frame_id))[:,0]
                     timestamps = dict_name['timestamps'][indices]
                     if(only_within_range and timestamps[0] > timestamp_range[0] and timestamps[-1] < timestamp_range[-1]):
                         frames_and_muids.append(frame_and_muid(frame_id,unique_muid))
-                    elif(only_within_range == False and ((timestamps > timestamp_range[0])*(timestamps < timestamp_range[1])).sum()):
+                    elif(only_within_range == False and ((timestamps > timestamp_range[0])*(timestamps < timestamp_range[1])).sum() and len(other_muid_indices)):
                         frames_and_muids.append(frame_and_muid(frame_id,unique_muid))
     return frames_and_muids
 
+def iterative_intersect(list_of_sets):
+    assert len(list_of_sets) > 1
+    intersection = list_of_sets[0]
+    for i in range(1,len(list_of_sets)):
+        intersection = np.intersect1d(intersection,list_of_sets[i])
+    return intersection
 def return_interesting_timestamps(dict_name,frame_ids):
     timestamps = []
     for frame_id in frame_ids:
