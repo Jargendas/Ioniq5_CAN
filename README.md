@@ -127,9 +127,7 @@ Feel free to join the conversation on [our Fluxer server](https://fluxer.gg/w0Op
 ## Rebatable Contributions from Customers
 The following contributions are welcome and potentially eligible for a rebate:
 - Offer suggestions or photos to improve the [manual](./guides/manuals/) or [install guides](./guides/cars/) or product descriptions:
-  - Document EV6 OBD mount location
-  - Document simpler EV6 trim steps
-  - Video EV6 install guide or documentation of any step
+  - Document alternate EV6 OBD mount location
 - Translate technical documentation into your language, particularly for German, Korean, Spanish and French
 - Accepted pull request to [firmware repository](https://github.com/L1Z3/wicant-i-precondition) or [DBC repository](https://github.com/dragz/egmpdbc)
 - Prototype physical button (note: Michaël is currently working on this; get in touch with us to avoid duplication of effort; this probably goes beyond a rebate)

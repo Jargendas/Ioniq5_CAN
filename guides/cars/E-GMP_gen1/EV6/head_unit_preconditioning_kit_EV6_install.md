@@ -3,8 +3,14 @@
 Written by [Tichael](https://github.com/Tichael) \- June 23, 2026
 
 Edited by [Tyler](https://github.com/tylerharvey) \- July 1, 2026
+Photos on quick method by Hotwirez/[jad3675](https://github.com/jad3675) and bowow/[discover dog](https://www.youtube.com/@Tsumeone) \- July 2, 2026
 
-This guide follows the service manual and is very thorough. This is a first version and a shorter guide may be available later.
+# Introduction
+
+There are two trim approaches documented here:
+1. A ["by the book" approach](#step-2-trim-option-a-by-the-book) that strictly follows the service manual
+2. A [quick](#step-2-trim-option-b-quick-method) approach that takes less time 
+See bowow's video guide on the quick approach: [https://youtu.be/cLIaA3FKEos](https://youtu.be/cLIaA3FKEos).
 
 Necessary tools:
 
@@ -20,6 +26,8 @@ Kit components:
 4. 70mm double-sided tape (two pieces included for redundancy)  
 5. 4 zip ties
 
+# Step 1: Disconnect 12V Battery
+
 ## Auxiliary 12 V Battery
 
 1. Open the front trunk.  
@@ -30,7 +38,8 @@ Kit components:
 4. Disconnect the service interlock connector.  
    ![](photos/image36.jpg)
 
-## 
+# Step 2: Trim: Option A: By the book
+This guide follows the service manual and is very thorough. 
 
 ## Crash Pad Side Cover
 
@@ -123,19 +132,58 @@ Kit components:
 
 ## Connecting the harness to the Audio/AVNT Head Unit
 
-1. The harness is connected to the dark gray connector on the left and the head unit. The male side of the harness (the side with visible pins) goes into the female original grey connector, and the female side (no visible pins) goes into the head unit. You should hear clicks in both cases.    
-![](photos/image13.jpg)    
-![](photos/image26.jpg)    
-![](photos/image19.jpg)
+1. Remove original female connector (grey, leftmost) from head unit.
+  ![](photos/image13.jpg)    
+  ![](photos/image26.jpg)    
+2. Connect the male side harness (the side with visible pins) to the original female connector and the head unit.
+3. Connect the female side (no visible pins) into the head unit. You should hear clicks in both cases.    
+  ![](photos/image19.jpg)
 
-   
+# Step 2: Trim: Option B: Quick method   
+
+See bowow's video guide on the quick approach: [https://youtu.be/cLIaA3FKEos](https://youtu.be/cLIaA3FKEos).
+
+## Remove the front console covers
+
+1. Remove trim clips on both sides with a forked trim removal tool.
+  ![](photos/front_console_removal.jpg)
+2. Pry on the top of the front with a flat trim removal tool.
+3. Set the front console cover to the side. \
+  ![](photos/USB_trim_removed_harness_down.jpg)
+
+## (Optional) Loosen crash pad center
+1. Remove screw connecting crash pad lower and crash pad center, circled in green below. \
+  ![](photos/USB_trim_removed_harness_down_screw_circled.jpg)
+
+## Install harness
+1. Remove original female connector (grey, leftmost) from head unit.
+  ![](photos/head_unit_looking_up.jpg)    
+2. Connect the male side harness (the side with visible pins) to the original female connector and the head unit.
+3. Connect the female side (no visible pins) into the head unit. You should hear clicks in both cases.    
+  ![](photos/harness_installed_looking_up.jpg)
+4. Pull the OBD end down.
 
 ## Mount the OBD bracket
 
-Apply the included tape to the OBD bracket. There is no current best recommended place, as there is an airbag near where we recommend mounting for the Ioniq 5\. The picture below shows one option, but a) it is very obvious, and b) the tape may sag in heat due to the torque from the WiCAN.  
-![](photos/image41.jpg)  
-Rebates are available for the first person to document a location that works well. New tape is available for retries for free until we have this part documented\! Email us if you need more. 
+1. Apply the included tape to the OBD bracket.
+
+### Option 1: On outside of crash pad lower
+This option is not recommended. a) It is very obvious, and b) the tape may sag in heat due to the torque from the WiCAN.  
+In this option, stick the OBD bracket to the crash pad lower trim. Run the harness up and insert the OBD into the bracket. \
+  ![](photos/image41.jpg)  
+
+### Option 2: Inside front console cover
+This option is easiest if you've already removed the front console cover as part of the quick install approach. This mount location keeps the kit very well hidden, but the WiCAN is less accessible. There are two good mount points within this approach:
+### Mount Option 2A
+Attach the OBD mount bracket to the plastic ventilaton duct. 
+  ![](photos/OBD_mount_1.jpg)
+### Mount Option 2B
+Attach the OBD mount bracket to the inner surface of the steel beam.  
+  ![](photos/OBD_mount_2.jpg)
+  ![](photos/wican_peeking.jpg)
+
+Mount 2B allows you to see lights on the WiCAN from the right position, which is advantageous in case of any troubleshooting, and it's removable without removing the front console cover. You shouldn't have to remove the WiCAN much, but in the rare case of issues, or if you want to fully disable the kit behavior in advance of a dealership visit, access can be useful.
 
 ## Reassembly
 
-Follow the instructions in reverse to reassemble everything.
+Follow the trim removal instructions in reverse to reassemble everything.
