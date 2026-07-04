@@ -9,4 +9,3 @@
 *.swp
 .ipynb_checkpoints
 __pycache__
-wiring_harness/archive/*
