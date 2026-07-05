@@ -9,7 +9,7 @@
 \usepackage[loose]{units}
 \usepackage{hyperref}
 \usepackage{cleveref}
-\usepackage{braket}
+\usepackage{tasks}
 \usepackage[caption=false]{subfig}
 \usepackage[english]{babel}
 \usepackage{letltxmacro}
@@ -67,7 +67,46 @@ If instead of `Battery Conditioning Mode' as shown in Figure \ref{subfig:menus:b
 Start with the \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/}{installation guides}. See \href{https://meatpihq.github.io/wican-fw/config/wifi}{WiCAN docs} for basic WiCAN setup. This is not necessary to activate preconditioning, but it's highly recommended that you at least change the default WiFi password for security.  
 
 \section{User Interface}
-To activate preconditioning manually, just press the star button on your steering wheel. You should immediately see a countdown in meters/yards on your cluster that hijacks the distance-to-destination indicator (note: cruise control blocks this display; we're working on ways around this). Preconditioning starts when this countdown reaches zero. If the countdown resets, that means something unexpected happened and it's retrying. 
+We are rapidly developing the user interface, so check back here often!
+
+To configure the manual preconditioning behavior, connect to the WiCAN WiFi and visit the WiCAN configuration page at \href{http://192.168.80.1}{http://192.168.80.1}. The third tab, called ``Buttons'', shown in Figure \ref{subfig:ui:buttons} allows for configuration of the manual preconditioning button and any other custom buttons that are added later.
+
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:ui:buttons}
+  \includegraphics[height=1.95in]{photos/ui_2026-07-04.png} }  \\
+   \caption{Screenshot of ``Buttons'' page in WiCAN http configuration.}
+\end{figure}
+
+The first option, ``Preconditioning Mode'', is currently in development and has only one allowed option: once. After triggering a single preconditioning cycle, preconditoining will stop. We are working on ``Continuous'' and ``Persistent'' modes that will allow the BMS to automatically re-heat the battery if the temperature drops either until the car is powered off (``Continuous'') or even through car on-off cycles (``Persistent'').
+
+The second option allows you a choice of button to map preconditioning onto. More options will be available with the customized WiCAN in man-in-the-middle mode. By default, 5 options are displayed:
+\begin{enumerate}
+  \item Disabled
+  \item Star Button (Steering Wheel) -- Default
+  \item Star Button (Climate Bar)
+  \item Tuner Press (Climate Bar)
+  \item Volume Press (Climate Bar)
+\end{enumerate}
+With ``Disabled'', no button will trigger preconditioning. This may be desirable when taking your car into a dealership for service to avoid confusing dealership service technicians. The ``press'' options refer to pressing in those buttons, as opposed to turning or pushing up or down. If none of these options work, you can check the ``Show all button options'' checkbox to enable more options:
+\begin{tasks}(2)
+  \task Mode (Steering Wheel)
+  \task Speak (Steering Wheel)
+  \task Call (Steering Wheel)
+  \task Volume Press (Steering Wheel)
+  \task Volume Up (Steering Wheel)
+  \task Volume Down (Steering Wheel)
+  \task Skip Up (Steering Wheel)
+  \task Skip Down (Steering Wheel)
+  \task OK (Steering Wheel)
+  \task Map (Climate Bar)
+  \task Nav (Climate Bar)
+  \task Media (Climate Bar)
+  \task Tuner Up (Climate Bar)
+  \task Tuner Down (Climate Bar)
+\end{tasks}
+Pick the button that works for you! We hope to offer physical buttons soon.
+
+To activate preconditioning manually, just press the activation button you've chosen. You should immediately see a countdown in meters/yards on your cluster that hijacks the distance-to-destination indicator. If you have cruise control on, the blocks the most obvious display of the distance-to-destination indicator. Use the pages button on the steering wheel to navigate to the cluster page that shows navigation instructions. Preconditioning starts when this countdown reaches zero. If the countdown resets, that means something unexpected happened and it's retrying. 
 
 When preconditioning activates, you'll see the standard popup saying, `Battery preconditioning activated for optimal DC charging', shown in Figure \ref{subfig:precon:popup}. You'll also get a snowflake or red coil icon over the battery symbol in the lower lefthand corner of the cluster, shown in Figure \ref{subfig:precon:coil}.
 
@@ -83,7 +122,7 @@ If preconditioning never activates, confirm that built-in conditions for activat
 \begin{enumerate}
   \item Battery temperature must be less than $\unit[21]{C}$/$\unit[70]{F}$
   \item State of charge must be higher than $\unit[20]{\%}$
-  \item `Battery Conditioning Mode' screen is present in `EV Settings' menu (see section \ref{sect:eligibility}
+  \item `Battery Conditioning Mode' screen is present in `EV Settings' menu (see section \ref{sect:eligibility})
 \end{enumerate}
 Unfortunately, these are limits that are built into battery management unit firmware or the hardware of the car that we cannot change with this kit.
 \section{Frequently Asked Questions}
@@ -95,13 +134,13 @@ Unfortunately, these are limits that are built into battery management unit firm
   \item[Q:] Does this make my car easier to steal?
   \item[A:] Not likely, but the installation is designed to be difficult to see for multiple reasons, including security. We highly recommend changing your WiCAN password. 
   \item[Q:] Will this void my warranty?
-  \item[A:] Check your country's warranty and consumer protection law. In the US, the Magnusson-Moss Warranty Act offers strong consumer protections. Automaker threats about aftermarket parts "voiding warranties" in many cases do not hold up in court. (This is not legal advice.) At the same time, diagnosis of problems by an automotive technician is challenging, and we highly recommend removal of aftermarket parts and accessories that could make diagnosis more complicated. For example, if you are encountering head unit or USB port problems, it is a good idea to de-install this kit before taking your car into a dealership to avoid complications with diagnosis. 
+  \item[A:] Check your country's warranty and consumer protection law. In the US, the Magnusson-Moss Warranty Act offers strong consumer protections. Automaker threats about aftermarket parts ``voiding warranties'' in many cases do not hold up in court. (This is not legal advice.) At the same time, diagnosis of problems by an automotive technician is challenging, and we highly recommend removal of aftermarket parts and accessories that could make diagnosis more complicated. For example, if you are encountering head unit or USB port problems, it is a good idea to de-install this kit before taking your car into a dealership to avoid complications with diagnosis. 
   \item[Q:] What is the recommended configuration of the kit for taking my car into the dealership for basic service?
   \item[A:] We recommend that you unplug your WiCAN and ensure that your harness is in \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf}{paralllel mode}.
   \item[Q:] What if I want to build this myself?
   \item[A:] Do it! Everything we've done is \href{https://github.com/tylerharvey/Ioniq5_CAN}{open-source}. Feel free to use the wiring harness diagram to build something yourself. The connectors are available on AliExpress. However, if you make a contribution to public knowledge in the form of a pull request to the \href{https://github.com/dragz/egmpdbc}{DBC file} or something else, rebates are available that will bring the net cost down to competitive-with-DIY pricing with a lot less labor.
   \item[Q:] Why can't this be a software update?
-  \item[A:] It could be. We have our guesses as to why Hyundai/Kia hasn't included this in a navigation update. If you  know how to \href{https://discord.gg/zyrngQ5qQ}{hack your head unit} and have found the CAN interface functions, you are welcome to add \href{https://www.reddit.com/r/KiaEV6/comments/1jdd56u/comment/mid9xie/}{a manual preconditioning button to your head unit}. However, distribution of hacked firmware is not possible at this time, so an aftermarket "update" would be difficult to make widely available.
+  \item[A:] It could be. We have our guesses as to why Hyundai/Kia hasn't included this in a navigation update. If you  know how to \href{https://discord.gg/zyrngQ5qQ}{hack your head unit} and have found the CAN interface functions, you are welcome to add \href{https://www.reddit.com/r/KiaEV6/comments/1jdd56u/comment/mid9xie/}{a manual preconditioning button to your head unit}. However, distribution of hacked firmware is not possible at this time, so an aftermarket ``update'' would be difficult to make widely available.
   \item[Q:] Can I implement this on my Comma device?
   \item[A:] We have tested this and don't believe it works. There appears to be no forwarding of preconditioning messages from the A or E CAN busses the Comma sits on to the M or G busses the BMU sits on.
   \item[Q:] Will this kill my ICCU?
