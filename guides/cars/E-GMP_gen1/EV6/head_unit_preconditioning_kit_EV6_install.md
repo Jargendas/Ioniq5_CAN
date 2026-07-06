@@ -182,7 +182,7 @@ Attach the OBD mount bracket to the inner surface of the steel beam.
   ![](photos/OBD_mount_2.jpg)
   ![](photos/wican_peeking.jpg)
 
-Mount 2B allows you to see lights on the WiCAN from the right position, which is advantageous in case of any troubleshooting, and it's removable without removing the front console cover. You shouldn't have to remove the WiCAN much, but in the rare case of issues, or if you want to fully disable the kit behavior in advance of a dealership visit, access can be useful.
+Mount 2B allows you to remove the WiCAN without removing the front console cover. You shouldn't have to remove the WiCAN much, but in the rare case of issues, or if you want to fully disable the kit behavior in advance of a dealership visit, access can be useful.
 
 ## Reassembly
 
