@@ -42,12 +42,6 @@
 
 \maketitle
 
-\section{What is preconditioning?}
-In order to protect the battery, an EV's battery management system (BMS) limits DC charging power when the battery is colder or hotter than the optimal temperature for charging (75-95°F). In winter in colder climates, this can mean that charging is far slower than optimal. First-generation E-GMP cars (2021-2024 Ioniq 5/EV6, 2023-2025 Ioniq 6/GV60) can routinely do 10-80\% in 18 minutes under optimal conditions. At worst, you might only see 25kW charging, about ten times slower than the fastest charging speed.
-
-To fix that, Hyundai and Kia added battery heaters to many EVs. Activation of this battery heater in advance of DC charging is called battery preconditioning. Battery preconditioning causes the battery heating system to activate when a charging station is entered into the built-in navigation so that the car arrives at the charger with a warm battery capable of much faster charging than without preconditioning. 
-
-For first-generation E-GMP cars, this feature is only activatable through the built-in navigation. This means that if you navigate to a charger using Google or Apple Maps, or A Better Route Planner, your battery may not be warm enough to reach maximum charging speed. In addition, with many new chargers being built worldwide, the database accessed by the built-in navigation is frequently out of date. In many cases, navigating to a charger with the built-in navigation still will not properly activate your battery heater. This is why we've built a manual button to activate this feature. 
 
 \section{Which cars can use this?} \label{sect:eligibility}
 The kit is designed to work on most 2021-2024 Ioniq 5s, 2022-2025 Ioniq 6s, and 2022-2024 EV6s. We have tested on Ioniq 5s from three different markets, as well as one Ioniq 6 and one EV6. \href{mailto:requests@electroniqbuttons.com}{Contact us} if you're interested in using the kit on a different car. The kit will only work if you have a battery heater. To assess that, please check for the `Battery Conditioning Mode' menu in `EV $\to$ EV Settings' (see Fig. \ref{subfig:menus:EVsettings}) on your car's head unit (center screen) (see Fig. \ref{subfig:menus:batt_cond}).
@@ -125,6 +119,60 @@ If preconditioning never activates, confirm that built-in conditions for activat
   \item `Battery Conditioning Mode' screen is present in `EV Settings' menu (see section \ref{sect:eligibility})
 \end{enumerate}
 Unfortunately, these are limits that are built into battery management unit firmware or the hardware of the car that we cannot change with this kit.
+
+\section{Power Usage}
+This kit runs on your car's 12V bus, which means it can draw from your car's 12V battery. It's worth discussing a few points related to this:
+\begin{enumerate}
+  \item How much power does it use?
+  \item Will it kill the 12V?
+  \item MITM vs. parallel
+\end{enumerate}
+
+\subsection{How much power does it use?}
+
+We measured power draw with car off (12.7V) for several microcontrollers in several states. The "normal use" WiCAN tests were performed without any http requests and without a BLE connection via CarScanner or similar. These tests were performed on the selectable CAN harness where no OBD requests are possible to our knowledge at present, so the microcontrollers capable of standard OBD (WiCAN, vLinker MC+) likely used less power than when actively polling OBD parameters on the normal OBD port. 
+
+\subsubsection{WiCAN original running v4.20\_eb0.1.1-beta19}
+\begin{enumerate}
+  \item{Normal use:} 30 mA
+  \item{http page use:} up to 34 mA
+  \item{booting:} up to 36 mA
+  \item{CAN monitor:} up to 38 mA
+  \item{Sleep:} $<$1 mA
+\end{enumerate}
+
+\subsubsection{WiCAN custom first rev running v4.20\_eb0.1.1-beta19}
+\begin{enumerate}
+  \item{Normal MITM use:} 40 mA
+  \item{Normal parallel use:} 34 mA
+  \item{booting:} up to 48 mA
+\end{enumerate}
+
+\subsubsection{WiCAN Pro running v4.50}
+\begin{enumerate}
+  \item{Normal use:} 50 mA
+\end{enumerate}
+
+\subsubsection{Comma white panda running last animatronic\_panda build}
+\begin{enumerate}
+  \item{Normal use:} 32 mA
+\end{enumerate}
+
+\subsubsection{vLinker MC+}
+\begin{enumerate}
+  \item{Normal use (no connection):} 15-18 mA
+  \item{CarScanner connected via BLE:} 20-25 mA, up to 60mA spikes
+\end{enumerate}
+
+\subsection{Will it kill the 12V?}
+
+The WiCAN has a power saving mode available, called sleep mode, where almost everything shuts down and it draws very little power. This is normally configured to start based on your car's 12V voltage. If you are concerned about your 12V, we encourage you to enable this feature, which can be found in the WiCAN interface at \href{http://192.168.80.1}{http://192.168.80.1} in the tab `Power Saving'. See more documentation here: \href{https://meatpihq.github.io/wican-fw/config/sleep-mode}{https://meatpihq.github.io/wican-fw/config/sleep-mode}. We are actively working on improving this feature to be CAN-based (i.e. listen for car-off signal) rather than voltage-based. 
+
+Over 7 days with a fresh 60Ah 12V battery, the customized WiCAN's typical power usage, 40 mA, would consume $40 \unit[\mathrm{mA}] * 24 \unit[\mathrm{hours/day}] * 7 \unit[\mathrm{days}] = 6.7 Ah$, which is about 10\% of the 12V state of charge. Unlocked and off, a 2022 Canadian Preferred AWD Ioniq 5 with no aftermarket loads draws about 1.75 A (1750 mA). After ECUs quiet down 5 minutes after locking the car, the draw is still 0.75 A (750 mA). (The car has a further "sleep" mode after 7 days of inactivity; this draw hasn't been measured here.) So, a customized WiCAN in MITM mode and not in sleep mode increases draw over the first 7 days of inactivity by 5\%.
+
+\subsection{MITM vs. Parallel}
+If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep, Hyundai/Kia app requests will not go through. A longer-term feature on our task list is to add a partial sleep that will allow CAN forwarding but disable WiFi. We recommend leaving your WiCAN with sleep mode set to a very low voltage, such as 12.3V, if the harness is in MITM and you want to use Hyundai/Kia app requests. 
+
 \section{Frequently Asked Questions}
 \begin{enumerate}
   \item[Q:] How do I install it?
@@ -145,8 +193,6 @@ Unfortunately, these are limits that are built into battery management unit firm
   \item[A:] We have tested this and don't believe it works. There appears to be no forwarding of preconditioning messages from the A or E CAN busses the Comma sits on to the M or G busses the BMU sits on.
   \item[Q:] Will this kill my ICCU?
   \item[A:] No.
-  \item[Q:] Will this kill my 12V battery?
-  \item[A:] Like an OBD reader plugged into the normal OBD port, the WiCAN adds some power usage when the car is off. However, the WiCAN comes with a power saving mode for this purpose. If you're very concerned about this, we encourage you to set the \href{https://meatpihq.github.io/wican-fw/config/sleep-mode}{sleep voltage cutoff} higher to be safer. Notably, a WiCAN plugged directly into M-CAN does not suffer from the keep-awake high voltage battery drain issue that \href{https://github.com/meatpiHQ/wican-fw/pull/782}{bluetoleco's pull request} addresses when using a WiCAN on the normal OBD port.
   \item[Q:] Can I use the built-in navigation while using this kit?
   \item[A:] With the beta version, this is not possible. This will be fixed with the customized WiCAN.
   \item[Q:] Will a navigation update affect my ability to use the kit?

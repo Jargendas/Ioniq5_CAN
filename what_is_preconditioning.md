@@ -1,0 +1,7 @@
+# What is preconditioning?
+
+In order to protect the battery, an EV's battery management system (BMS) limits DC charging power when the battery is colder or hotter than the optimal temperature for charging (75-95°F). In winter in colder climates, this can mean that charging is far slower than optimal. First-generation E-GMP cars (2021-2024 Ioniq 5/EV6, 2023-2025 Ioniq 6/GV60) can routinely do 10-80\% in 18 minutes under optimal conditions. At worst, you might only see 25kW charging, about ten times slower than the fastest charging speed.
+
+To fix that, Hyundai and Kia added battery heaters to many EVs. Activation of this battery heater in advance of DC charging is called battery preconditioning. Battery preconditioning causes the battery heating system to activate when a charging station is entered into the built-in navigation so that the car arrives at the charger with a warm battery capable of much faster charging than without preconditioning. 
+
+For first-generation E-GMP cars, this feature is only activatable through the built-in navigation. This means that if you navigate to a charger using Google or Apple Maps, or A Better Route Planner, your battery may not be warm enough to reach maximum charging speed. In addition, with many new chargers being built worldwide, the database accessed by the built-in navigation is frequently out of date. In many cases, navigating to a charger with the built-in navigation still will not properly activate your battery heater. This is why we've built a manual button to activate this feature. 

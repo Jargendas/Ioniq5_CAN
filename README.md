@@ -1,7 +1,7 @@
 > Car, give me the grace to accept with serenity the things that cannot be changed, courage to build the buttons that Hyundai will never offer as an update, and the wisdom to distinguish the one from the other. 
 
 # Purpose 
-We have begun shipping a fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
+We have begun shipping a fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. For a brief background on battery preconditioning, see ["What is preconditioning?"](what_is_preconditioning.md). For a brief technical overview of the kit, see the [basic preconditioning kit explanation](basic_explanation.md). This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
 Major contributors to date:
 - [Liz](https://github.com/L1Z3): firmware, CAN reverse-engineering
 - [Roy](https://github.com/dragz): CAN reverse-engineering, prototyping
@@ -21,15 +21,6 @@ Other repositories for this project:
 
 # How to Buy
 We have begun shipping orders to customers. To purchase in the US, visit [ElectroniqButtons.com](https://www.electroniqbuttons.com). To purchase outside the US, buy on [Etsy](https://www.etsy.com/listing/4498059167/ioniq-56ev6gv60-manual-preconditioning). Etsy does not support HTML, so the product pages are much clearer at [ElectroniqButtons.com](https://www.electroniqbuttons.com). It's advisable to browse there first. If you have any questions not answered on the product pages, please ask us at [info@electroniqbuttons.com](mailto:info@electroniqbuttons.com). If you do make a purchase, please fill out [this email form](https://docs.google.com/forms/d/e/1FAIpQLSd8GtjELMu9Nn59Qep1Qt1Ey02MGxPplVcpOBm7KX2CQ7S9JQ/viewform?usp=header) so we know which car(s) you have.
-
-# Basic Explanation
-This kit installs just below the car's head unit, in between the head unit and the rest of the car. That allows our microcontroller to duplicate or override any requests the head unit makes of the rest of the car. That allows us to request that the battery management unit initiates preconditioning in exactly the same way the head unit makes that request when using the built-in navigation.
-![schematic diagram](schematic_drawing.svg)
-The included wiring harness has two modes: man-in-the-middle (MITM), which you might also call serial, or parallel. 
-
-In man-in-the-middle mode, the head unit is no longer electrically connected to the CAN bus that allows it to communicate with the rest of the car, and lives on its own little network with our microcontroller. The microcontroller decides what to send to the rest of the car and does so fast enough that everything works normally.  The upside of this is that we get a lot of control over communication. The downside is that if you remove the microcontroller, your head unit can no longer talk to the rest of the car. We are getting a customized WiCAN built which will work in man-in-the-middle mode.
-
-In parallel mode, the harness sits on the CAN bus as if it were just another ECU. The head unit communicates normally with the car regardless of whether the microcontroller is in or out. Any microcontroller can be used here to do whatever you can dream up, but we have less control over communication. Our beta test kits ship with a stock WiCAN and are designed to be operated in parallel mode. Our beta testers will have the option to upgrade to a customized WiCAN for free when those are available, and can just [switch the harness mode over](guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf) to MITM when that arrives. The messages we send to the dash are [flickery in this mode](https://youtu.be/37fBu63kVeo?si=eVobnYavg8i2hmdD), as we have to wrestle the head unit for control, but preconditioning activates successfully. 
 
 # Structure
 This kit has a few moving parts:
