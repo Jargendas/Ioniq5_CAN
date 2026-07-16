@@ -186,7 +186,7 @@ Step-by-step instructions:
   \includegraphics[width=1.5in,angle=-90]{photos/crash_pad_center_ul_screw.jpg} } 
    \caption{(a) Removing screw in crash pad lower. (b) You may find one or two screws behind crash pad lower. (c) Removing screw(s) behind crash pad lower. (d) Removing screw holding in crash pad garnish. (e) Removing AVN keyboard left screw. (f) Removing AVN keyboard right screw. (g) Removing AVN keyboard lower left screw. (h) Removing AVN keyboard lower right screw. (i) Removing AVN keyboard. (j) Removing crash pad center screw that was blocked by AVN keyboard. (k) Removing crash pad center screw that was behind crash pad garnish, left of the AVN keyboard. \label{fig:trimsteps}}
 \end{figure}
-\subsection{Option B: quick and dirty}
+\subsection{Option B: quick}
 We only partially remove two trim panels with this approach:
 \begin{enumerate}
   \item Crash pad lower
@@ -203,6 +203,42 @@ Step-by-step instructions:
   \item You can now access the head unit from underneath crash pad center
 \end{enumerate}
 
+\subsection{Option C: quick option 2}
+
+This method isn't recommended, but presented here for information. Reasons to avoid:
+\begin{enumerate}
+  \item Requires long straight driver for 10mm socket
+  \item Doesn't offer access as good as Option B (but could be combined with Option B)
+  \item Reinstallation of trim is tricker; alignment of the 3 clips at the top is challenging. 
+\end{enumerate}
+The primary value in this method is that well-hidden mount points are possible. These are not documented here, but the \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/cars/E-GMP_gen1/EV6/head_unit_preconditioning_kit_EV6_install.pdf}{EV6 insallation manual} offers some ideas. In this method, we remove crash pad center lower tray, the housing for the front USB port. 
+
+\begin{enumerate}
+  \item Remove left trim clip with trim removal tool (Figure \ref{subfig:usb_trim:left_clip})
+  \item Remove right trim clip with trim removal tool (Figure \ref{subfig:usb_trim:right_clip})
+  \item Remove floor of console storage with trim removal tool (Figure \ref{subfig:usb_trim:carpet}) 
+  \item Remove bolt with 10mm socket on a long straight driver (Figure \ref{subfig:usb_trim:bolt})
+  \item Pry top of crash pad center lower tray to disconnect the 3 trim clips at the top (Figure \ref{subfig:usb_trim:trim_off})
+  \item Set it to the side (Figure \ref{subfig:usb_trim:trim_to_side})
+\end{enumerate}
+
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:usb_trim:left_clip}
+  \includegraphics[height=1.5in,angle=0]{photos/usb_trim_clip_left.jpg} } 
+  \subfloat[]{\label{subfig:usb_trim:right_clip}
+  \includegraphics[height=1.5in,angle=0]{photos/usb_trim_clip_right.jpg} } 
+  \subfloat[]{\label{subfig:usb_trim:carpet}
+  \includegraphics[height=1.5in,angle=0]{photos/removing_usb_trim_carpet.jpg} } \\
+  \subfloat[]{\label{subfig:usb_trim:bolt}
+  \includegraphics[height=1.5in,angle=0]{photos/removing_usb_trim_bolt.jpg} } 
+  \subfloat[]{\label{subfig:usb_trim:trim_off}
+  \includegraphics[height=1.5in,angle=0]{photos/usb_trim_off_2.jpg} } 
+  \subfloat[]{\label{subfig:usb_trim:trim_to_side}
+  \includegraphics[height=1.5in,angle=0]{photos/usb_trim_off.jpg} }  
+  \subfloat[]{\label{subfig:usb_trim:HU}
+  \includegraphics[height=1.5in,angle=0]{photos/usb_trim_off_reaching_for_HU.jpg} } 
+   \caption{Removing crash pad center lower tray: (a) Left clip. (b) Right clip. (c) Floor removal. (d) Remove bolt with 10mm socket. (e) Disconnect 3 trim clips with trim removal tool. (f) Place trim to side. (g) You can now reach the bottom of the head unit.  \label{fig:usb_trim}}
+\end{figure}
 \section{Step 3: Harness Connection} \label{sect:2}
 This step covers the installation of the harness into the head unit. 
 
@@ -234,22 +270,22 @@ Step-by-step instructions:
 \begin{enumerate}
   \item Thread harness along the bottom edge of crash pad lower
   \item Plug OBD female into bracket
-  \item Use double-sided tape to mount bracket to inside of crash pad lower
-  \item Use zip ties to attach harness to other wires and mount points (Figure \ref{subfig:obd:zip_tie})
+  \item Use double-sided tape to mount bracket to side of footwell vent behind crash pad lower (Figure \ref{subfig:obd:wican})
+  \item Use zip ties to attach harness to other wires and mount points (Figure \ref{subfig:obd:zip_tie} and \ref{subfig:obd:zip_tie2})
   \item While holding bracket, plug in WiCAN (Figure \ref{subfig:obd:wican})
 \end{enumerate}
 
 \begin{figure}[h]
   \subfloat[]{\label{subfig:obd:zip_tie}
   \includegraphics[height=1.5in,angle=0]{photos/zip_tie_1.jpg} } 
+  \subfloat[]{\label{subfig:obd:zip_tie2}
+  \includegraphics[height=1.5in,angle=0]{photos/harness_mounted_zip_ties_2.jpg} } 
   \subfloat[]{\label{subfig:obd:wican}
-  \includegraphics[height=1.5in,angle=0]{photos/wican_inserted.jpg} } 
-   \caption{(a) Harness zip-tied to existing wire. (b) WiCAN inserted into OBD. \label{fig:obd}}
+  \includegraphics[height=1.5in,angle=0]{photos/WiCAN_installed_on_vent.jpg} } 
+   \caption{(a) Harness zip-tied to existing wire. (b) Harness zip-tied to vent mount. (c) WiCAN mounted on the side of the vent. \label{fig:obd}}
 \end{figure}
 
 \section{Step 5: Clean up} \label{sect:4}
 Reverse the trim removal steps. Make sure trim clips are aligned, and then firmly pop the trim panels back into place. Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. Change your WiCAN password: \href{https://meatpihq.github.io/wican-fw/config/wifi}{https://meatpihq.github.io/wican-fw/config/wifi}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
 \appendix 
-\bibliographystyle{apsrev4-1}
-\bibliography{stemh_model}{}
 \end{document}

@@ -6,6 +6,7 @@
 *#
 *egg-info
 *.tar.gz
+*.tar.xz
 *.swp
 .ipynb_checkpoints
 __pycache__
