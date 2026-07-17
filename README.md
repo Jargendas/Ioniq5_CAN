@@ -1,7 +1,7 @@
 > Car, give me the grace to accept with serenity the things that cannot be changed, courage to build the buttons that Hyundai will never offer as an update, and the wisdom to distinguish the one from the other. 
 
 # Purpose 
-We have begun shipping a fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. For a brief background on battery preconditioning, see ["What is preconditioning?"](what_is_preconditioning.md). For a brief technical overview of the kit, see the [basic preconditioning kit explanation](basic_explanation.md). This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
+We have begun shipping a fully open-source Ioniq 5/6/EV6 preconditioning button that can be implemented with a hardware retrofit kit. With the kit, preconditioning is [activatable](https://youtu.be/37fBu63kVeo?si=eVobnYavg8i2hmdD) and cancelable by an [existing button](guides/manuals/preconditioning_manual.pdf) in your car. Other activation options are in development. For a brief background on battery preconditioning, see ["What is preconditioning?"](what_is_preconditioning.md). For a brief technical overview of the kit, see the [basic preconditioning kit explanation](basic_explanation.md). This repository serves to document progresss on Ioniq 5 CAN reverse-engineering and status updates on the hardware and software for the kit.
 Major contributors to date:
 - [Liz](https://github.com/L1Z3): firmware, CAN reverse-engineering
 - [Roy](https://github.com/dragz): CAN reverse-engineering, prototyping

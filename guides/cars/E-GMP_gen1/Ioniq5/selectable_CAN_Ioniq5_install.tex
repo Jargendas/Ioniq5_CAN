@@ -61,7 +61,7 @@
 % \end{figure}
 
 \section{Introduction}
-This is a placeholder. Watch the video for now!
+This guide describes the steps to install the selectable CAN harness into an Ioniq 5 ICU. See also \href{https://github.com/dragz/explorationsincarhacking/blob/main/articles/getting_past_the_secure_gateway/getting_past_the_secure_gateway.md}{these instructions} on identifying and acessing the ICU-H connector.
 
 Necessary tools:
 \begin{enumerate}
@@ -105,27 +105,27 @@ Step-by-step instructions:
 \section{Step 2: Harness Install} \label{sect:2}
 This step will cover the installation of the harness into the ICU. 
 
-% Step-by-step instructions:
-% \begin{enumerate}
-%   \item Identify original grey female head unit connector (Figure \ref{subfig:harness:headunit})
-%   \item Remove it by squeezing the clip and pulling down (Figure \ref{subfig:harness:M05Bout})
-%   \item Insert the harness female side into the head unit (Figure \ref{subfig:harness:female})
-%   \item Insert the female connector you removed into the harness male side (Figure \ref{subfig:harness:harness_in})
-% \end{enumerate}
-% 
-% \begin{figure}[h]
-%   \subfloat[]{\label{subfig:harness:female}
-%   \includegraphics[height=1.5in,angle=0]{../../../harnesses/head_unit_MITM/photos/labeled_connectors_MITM_harness.jpg} } 
-%   \subfloat[]{\label{subfig:harness:male}
-%   \includegraphics[height=1.5in,angle=0]{photos/male_harness_end.jpg} }  \\
-%   \subfloat[]{\label{subfig:harness:headunit}
-%   \includegraphics[height=1.5in,angle=0]{photos/head_unit_connectors_in.jpg} } 
-%   \subfloat[]{\label{subfig:harness:M05Bout}
-%   \includegraphics[height=1.5in,angle=0]{photos/M05-B_out.jpg} } 
-%   \subfloat[]{\label{subfig:harness:harness_in}
-%   \includegraphics[height=1.5in,angle=0]{photos/harness_in.jpg} }  
-%    \caption{(a) Labeled photo showing female harness connector. (b) Male harness connector. (c) Head unit with connectors plugged in. (d) Female M05-B connector (grey) removed from head unit. (e) Harness installed in head unit. \label{fig:harness}}
-% \end{figure}
+Step-by-step instructions:
+\begin{enumerate}
+  \item (Optional) Remove ICU-H following \href{https://github.com/dragz/explorationsincarhacking/blob/main/articles/getting_past_the_secure_gateway/getting_past_the_secure_gateway.md}{these instructions}
+  \item Install the fuse tap into spare 2 for always-on operation, or spare 1 for on-with-car-on operation (Figure \ref{subfig:harness:fusetap})
+  \item Remove ICU-H connector (Figure \ref{subfig:harness:ICU-H})
+  \item Insert the harness female side into the ICU 
+  \item Insert the female connector you removed into the harness male side 
+  \item Mount bracket on the side of the blue connector, so that the OBD face will point down (Figure \ref{subfig:harness:obd_mount})
+  \item Insert the OBD port into the bracket
+  \item Insert WiCAN into OBD port
+\end{enumerate}
+
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:harness:fusetap}
+  \includegraphics[height=1.5in,angle=0]{photos/fuse_tap_in_wrong.jpg} } 
+  \subfloat[]{\label{subfig:harness:ICU-H}
+  \includegraphics[height=1.5in,angle=0]{photos/icu-h_harness_in.jpg} }  
+  \subfloat[]{\label{subfig:harness:obd_mount}
+  \includegraphics[height=1.5in,angle=0]{photos/obd_mounted_icuh.jpg} } 
+   \caption{(a) Fuse tap doubled with dashcam fuse tap on spare 2. Note that this will not work as depicted and requires a second fuse on the lower fuse tap. (b) ICU-H (green arrow) with harness installed; male harnesss connector (red arrow) mated with original female connector. (c) OBD port mounted on bracket. \label{fig:harness}}
+\end{figure}
 
 \section{Step 3: Clean up} \label{sect:4}
 Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. \href{https://meatpihq.github.io/wican-fw/config/wifi}{Change your WiCAN password!}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
