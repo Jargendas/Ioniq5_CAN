@@ -1,0 +1,83 @@
+\documentclass[superscriptaddress,onecolumn,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[loose]{units}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{braket}
+% \usepackage[caption=false]{subfig}
+\usepackage{subcaption}
+\usepackage[english]{babel}
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+    \@ifundefined{alias@\string#1}
+      {\ORIGselectlanguage{#1}}
+      {\begingroup\edef\x{\endgroup
+         \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{en}{english}
+
+
+\begin{document}
+                            
+\title{Thanks for your order!}
+\author{Electroniq Buttons Boutique}
+\email{support@electroniqbuttons.com}
+\date{\today}
+
+\maketitle
+
+Hi! Thanks for ordering a car-hacking kit from us! Our documentation for this product is still under heavy revision, so check back frequently. If there's a hole in the documentation that you're interested in filling, we welcome contributions! We're still learning, so we would appreciate any feedback you have: feel free to email us at \href{mailto:info@electroniqbuttons.com}{info@electroniqbuttons.com}. It's also important to us that everything works. Please email us at \href{mailto:support@electroniqbuttons.com}{support@electroniqbuttons.com} if that's not the case. 
+
+Included in the car-hacking kit:
+{\small
+\begin{enumerate}
+  \item (if selected) 1 WiCAN-OBD-C3 flashed with the latest beta firmware
+  \item 1 custom harness for the central CAN hub (ICU or CCU)
+  \item Mounting supplies: 
+    \begin{enumerate}
+      \item 1 60mm OBD mount bracket
+      \item 2 pieces of double-sided adhesive, cut to 60mm (1 extra in case of mishaps; email us if you need more)
+      \item 4 zip ties
+    \end{enumerate}
+\end{enumerate}
+}
+
+\begin{figure}[h]
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/install_guides.png} 
+    \caption{Install Guides \label{subfig:qr:guides}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/manual_carhacking.png} 
+    \caption{Manual \label{subfig:qr:manual}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/email_list.png} 
+    \caption{Email List Signup \label{subfig:qr:email}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/fluxer.png} 
+    \caption{Fluxer Community Invite \label{subfig:qr:fluxer}}
+  \end{subfigure}
+\end{figure}
+Please check out the install guides (\ref{subfig:qr:guides}) and the manual (\ref{subfig:qr:manual}). Note that these are live documents and will be regularly updated.
+
+We will be releasing lots of firmware updates, so we hope you'll join either our \href{https://docs.google.com/forms/d/e/1FAIpQLSd8GtjELMu9Nn59Qep1Qt1Ey02MGxPplVcpOBm7KX2CQ7S9JQ/viewform?usp=sharing&ouid=113251294956098361139}{email list} (\ref{subfig:qr:email}) or \href{https://fluxer.gg/8FV7gPtN}{Fluxer community} (\ref{subfig:qr:fluxer}) to receive notifications of future updates. Happy car-hacking!
+
+\bibliographystyle{apsrev4-1}
+\bibliography{stemh_model}{}
+\end{document}
