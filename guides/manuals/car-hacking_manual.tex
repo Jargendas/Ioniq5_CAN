@@ -52,6 +52,12 @@ Start with the \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/
 \section{SavvyCAN}
 There are many ways to grab CAN logs with a WiCAN, but most people choose \href{https://www.savvycan.com/}{SavvyCAN} for ease of use and features. A minimal set of instructions is available \href{https://meatpihq.github.io/wican-fw/savvycan/usage}{here}. We hope to offer more soon.
 
+A fork of SavvyCAN actively developed by members of this E-GMP car-hacking community, \href{https://github.com/SuperSuave/SavvyLens}{SavvyLens}, has features designed for our reverse-engineering context, such as signal bookmarking and a nicer signal viewer.
+
+\section{Resetting your car}
+
+Sending CAN frames to your car when attempting to reverse engineer can put ECUs in strange states. We've seen issues with the climate bar and brightness adjustment when trying to reverse engineer those ECUs. If your car is acting strangely, disconnect the 12V for 30 minutes to do a hard reset. Note: you will lose BMS data, so please save that before doing this.
+
 \section{Frequently Asked Questions}
 \begin{enumerate}
   \item[Q:] Why am I not seeing any CAN data?
