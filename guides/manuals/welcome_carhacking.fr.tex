@@ -1,0 +1,84 @@
+\documentclass[superscriptaddress,onecolumn,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[loose]{units}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{braket}
+% \usepackage[caption=false]{subfig}
+\usepackage{subcaption}
+\usepackage[french]{babel}
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+    \@ifundefined{alias@\string#1}
+      {\ORIGselectlanguage{#1}}
+      {\begingroup\edef\x{\endgroup
+         \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{fr}{french}
+
+
+\begin{document}
+\selectlanguage{fr}
+
+\title{Merci pour votre commande !}
+\author{Boutique de boutons Electroniq}
+\email{support@electroniqbuttons.com}
+\date{\today}
+
+\maketitle
+
+Salut! Merci d'avoir commandé un kit de piratage de voiture chez nous ! Notre documentation pour ce produit est encore en cours de révision, alors revenez fréquemment. S'il y a un trou dans la documentation que vous souhaitez combler, nous apprécions les contributions ! Nous sommes encore en apprentissage, nous apprécierions donc vos commentaires : n'hésitez pas à nous envoyer un e-mail à \href{mailto:info@electroniqbuttons.com}{info@electroniqbuttons.com}. Il est également important pour nous que tout fonctionne. Veuillez nous envoyer un e-mail à \href{mailto:support@electroniqbuttons.com}{support@electroniqbuttons.com} si ce n'est pas le cas. 
+
+Inclus dans le kit de piratage de voiture :
+{\small
+\begin{enumerate}
+  \item (si sélectionné) 1 WiCAN-OBD-C3 flashé avec le dernier firmware bêta
+  \item 1 faisceau personnalisé pour le hub CAN central (ICU ou CCU)
+  \item Fournitures de montage : 
+    \begin{enumerate}
+      \item 1 support de montage OBD de 60 mm
+      \item 2 morceaux d'adhésif double face, découpés à 60 mm (1 supplémentaire en cas d'incident ; envoyez-nous un e-mail si vous avez besoin de plus)
+      \item 4 attaches zippées
+    \end{enumerate}
+\end{enumerate}
+}
+
+\begin{figure}[h]
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/install_guides.png} 
+    \caption{Guides d'installation \label{subfig:qr:guides}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/manual_carhacking.png} 
+    \caption{Manuel \label{subfig:qr:manual}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/email_list.png} 
+    \caption{Inscription à la liste de diffusion \label{subfig:qr:email}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/fluxer.png} 
+    \caption{Invitation à la communauté Fluxer \label{subfig:qr:fluxer}}
+  \end{subfigure}
+\end{figure}
+Veuillez consulter les guides d'installation (\ref{subfig:qr:guides}) et le manuel (\ref{subfig:qr:manual}). Notez qu’il s’agit de documents en direct et qu’ils seront régulièrement mis à jour.
+
+Nous publierons de nombreuses mises à jour du firmware, nous espérons donc que vous rejoindrez notre \href{https://docs.google.com/forms/d/e/1FAIpQLSd8GtjELMu9Nn59Qep1Qt1Ey02MGxPplVcpOBm7KX2CQ7S9JQ/viewform?usp=sharing&ouid=113251294956098361139}{liste de diffusion} (\ref{subfig:qr:email}) ou \href{https://fluxer.gg/8FV7gPtN}{Communauté de fluxeurs} (\ref{subfig:qr:fluxer}) pour recevoir des notifications de futures mises à jour. Bon piratage de voiture !
+
+\bibliographystyle{apsrev4-1}
+\bibliography{stemh_model}{}
+\end{document}

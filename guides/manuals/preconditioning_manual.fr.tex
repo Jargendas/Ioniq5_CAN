@@ -1,0 +1,218 @@
+\documentclass[superscriptaddress,onecolumn,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[loose]{units}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tasks}
+\usepackage[caption=false]{subfig}
+\usepackage[french]{babel}
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+    \@ifundefined{alias@\string#1}
+      {\ORIGselectlanguage{#1}}
+      {\begingroup\edef\x{\endgroup
+         \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{fr}{french}
+
+
+\begin{document}
+\selectlanguage{fr}
+
+\begin{abstract}
+  Ce manuel couvre l'utilisation de base et les questions fréquemment posées concernant le kit de préconditionnement manuel.
+\end{abstract}
+\title{Manuel du kit de préconditionnement}
+\author{Boutique de boutons Electroniq}
+\email{support@electroniqbuttons.com}
+\date{\today}
+
+\maketitle
+
+
+\section{Quelles voitures peuvent utiliser cela ?} \label{sect:eligibility}
+Le kit est conçu pour fonctionner sur la plupart des Ioniq 5 2021-2024, des Ioniq 6 2022-2025 et des EV6 2022-2024. Nous avons testé des Ioniq 5 de trois marchés différents, ainsi qu'un Ioniq 6 et un EV6. \href{mailto:requests@electroniqbuttons.com}{Contactez-nous} si vous souhaitez utiliser le kit sur une autre voiture. Le kit ne fonctionnera que si vous disposez d'un chauffage par batterie. Pour évaluer cela, veuillez vérifier le menu « Mode de conditionnement de la batterie » dans « EV $\to$ Paramètres EV' (voir Fig. \ref{subfig:menus:EVsettings}) sur l'unité principale de votre voiture (écran central) (voir Fig. \ref{subfig:menus:batt_cond}).
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:menus:EVsettings}
+  \includegraphics[height=1.95in]{photos/EV_settings.jpg} }
+  \subfloat[]{\label{subfig:menus:batt_cond}
+  \includegraphics[height=1.95in]{photos/battery_conditioning_mode.jpg} }
+   \caption{(a) Comment trouver le menu des paramètres EV : sur l'écran principal, appuyez sur l'icône « EV » ; puis, dans le menu de gauche qui apparaît, cliquez sur « Paramètres EV ». (b) Écran « Mode de conditionnement de la batterie ». \label{fig:menus}}
+\end{figure}
+
+Si vous ne possédez pas cet écran, vous ne devriez pas acheter ce kit. Veuillez contacter un concessionnaire ou des propriétaires compétents dans votre pays pour évaluer s'il est possible d'installer cette fonctionnalité sur votre voiture avec des étapes supplémentaires. Pour les États-Unis, le Canada ou la Norvège, n'hésitez pas à nous contacter au \href{mailto:support@electroniqbuttons.com}{support@electroniqbuttons.com} et nous serons heureux de vous aider à évaluer cela avec quelques informations sur votre voiture.
+
+Si au lieu du « Mode de conditionnement de la batterie », comme indiqué sur la figure \ref{subfig:menus:batt_cond}, vous disposez du « Mode hiver », votre voiture a juste besoin d'une mise à jour du micrologiciel auprès d'un concessionnaire. Recherchez le bulletin de service technique correspondant à votre pays concernant cette mise à jour et rendez-vous chez votre concessionnaire compétent le plus proche. Après avoir terminé cette étape et confirmé le menu 'Battery Conditioning Mode' remplaçant 'Winter Mode', vous pouvez acheter ce kit.
+
+\section{Configuration du kit de base}
+Commencez par le \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/}{guides d'installation}. Voir \href{https://meatpihq.github.io/wican-fw/config/wifi}{Documents WiCAN} pour la configuration de base de WiCAN. Cela n'est pas nécessaire pour activer le préconditionnement, mais il est fortement recommandé de modifier au moins le mot de passe WiFi par défaut pour des raisons de sécurité.  
+
+\section{Interface utilisateur}
+Nous développons rapidement l’interface utilisateur, alors revenez souvent ici !
+
+Pour configurer le comportement de préconditionnement manuel, connectez-vous au WiCAN WiFi et visitez la page de configuration WiCAN à l'adresse \href{http://192.168.80.1}{http://192.168.80.1}. Le troisième onglet, appelé « Boutons », illustré dans la figure \ref{subfig:ui:buttons} permet la configuration du bouton de préconditionnement manuel et de tout autre bouton personnalisé ajouté ultérieurement.
+
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:ui:buttons}
+  \includegraphics[height=1.95in]{photos/ui_2026-07-04.png} }  \\
+   \caption{Capture d'écran de la page ``Boutons'' dans la configuration http WiCAN.}
+\end{figure}
+
+La première option, « Mode de préconditionnement », est actuellement en développement et n'a qu'une seule option autorisée : une fois. Après avoir déclenché un seul cycle de préconditionnement, le préconditionnement s'arrêtera. Nous travaillons sur les modes « Continu » et « Persistant » qui permettront au BMS de réchauffer automatiquement la batterie si la température baisse, soit jusqu'à ce que la voiture soit éteinte (« Continu ») ou même pendant les cycles marche-arrêt de la voiture (« Persistant »).
+
+La deuxième option vous permet de choisir un bouton sur lequel mapper le préconditionnement. Plus d'options seront disponibles avec le WiCAN personnalisé en mode homme du milieu. Par défaut, 5 options sont affichées :
+\begin{enumerate}
+  \item Désactivé
+  \item Bouton étoile (volant) - par défaut
+  \item Bouton étoile (barre climatique)
+  \item Tuner Press (Barre climatique)
+  \item Volume Press (Barre climatique)
+\end{enumerate}
+Avec « Désactivé », aucun bouton ne déclenchera le préconditionnement. Cela peut être souhaitable lorsque vous emmenez votre voiture chez un concessionnaire pour un entretien afin d'éviter de confondre les techniciens d'entretien du concessionnaire. Les options « appuyer » font référence à la pression sur ces boutons, par opposition à la rotation ou à la poussée vers le haut ou vers le bas. Si aucune de ces options ne fonctionne, vous pouvez cocher la case « Afficher toutes les options du bouton » pour activer plus d'options :
+\begin{tasks}(2)
+  \task Mode (volant)
+  \task Parler (volant)
+  \task Appel (volant)
+  \task Pression du volume (volant)
+  \task Augmentation du volume (volant)
+  \task Baisser le volume (volant)
+  \task Sauter vers le haut (volant)
+  \task Saut vers le bas (volant)
+  \task OK (volant)
+  \task Carte (barre climatique)
+  \task Nav (barre climatique)
+  \task Médias (bar climatique)
+  \task Mise au point (barre climatique)
+  \task Tuner vers le bas (barre climatique)
+\end{tasks}
+Choisissez le bouton qui vous convient ! Nous espérons proposer prochainement des boutons physiques.
+
+Pour activer le préconditionnement manuellement, appuyez simplement sur le bouton d'activation que vous avez choisi. Vous devriez immédiatement voir un compte à rebours en mètres/yards sur votre cluster qui détourne l'indicateur de distance jusqu'à la destination. Si le régulateur de vitesse est activé, il bloque l'affichage le plus évident de l'indicateur de distance jusqu'à la destination. Utilisez le bouton Pages sur le volant pour accéder à la page du cluster qui affiche les instructions de navigation. Le préconditionnement démarre lorsque ce compte à rebours atteint zéro. Si le compte à rebours est réinitialisé, cela signifie que quelque chose d'inattendu s'est produit et que vous réessayez. 
+
+Lorsque le préconditionnement est activé, vous verrez la fenêtre contextuelle standard indiquant : « Préconditionnement de la batterie activé pour une charge CC optimale », illustré dans la figure \ref{subfig:precon:popup}. Vous obtiendrez également une icône de flocon de neige ou de bobine rouge sur le symbole de la batterie dans le coin inférieur gauche du cluster, illustré dans la figure \ref{subfig:precon:coil}.
+
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:precon:popup}
+  \includegraphics[height=1.95in]{photos/precon_active.jpg} }  \\
+  \subfloat[]{\label{subfig:precon:coil}
+  \includegraphics[height=1in]{photos/coil_on_battery.jpg} }
+   \caption{(a) Capture d'écran de la fenêtre contextuelle indiquant l'activation réussie du préconditionnement de la batterie. (b) Exemple de capture d'écran de l'icône de bobine superposée sur le symbole de batterie dans le coin inférieur gauche du groupe d'instruments. \label{fig:precon}}
+\end{figure}
+
+Si le préconditionnement ne s'active jamais, confirmez que les conditions intégrées pour l'activation sont remplies :
+\begin{enumerate}
+  \item La température de la batterie doit être inférieure à $\unit[21]{C}$/$\unit[70]{F}$
+  \item L'état de charge doit être supérieur à $\unit[20]{\%}$
+  \item L'écran « Mode de conditionnement de la batterie » est présent dans le menu « Paramètres EV » (voir la section \ref{sect:eligibility})
+\end{enumerate}
+Malheureusement, ce sont des limites intégrées au micrologiciel de l'unité de gestion de batterie ou au matériel de la voiture que nous ne pouvons pas modifier avec ce kit.
+
+\section{Consommation d'énergie}
+Ce kit fonctionne sur le bus 12V de votre voiture, ce qui signifie qu'il peut puiser dans la batterie 12V de votre voiture. Cela vaut la peine de discuter de quelques points liés à ceci :
+\begin{enumerate}
+  \item Quelle puissance consomme-t-il ?
+  \item Est-ce que ça va tuer le 12V ?
+  \item MITM vs parallèle
+\end{enumerate}
+
+\subsection{Quelle puissance consomme-t-il ?}
+
+Nous avons mesuré la consommation électrique avec la voiture éteinte (12,7 V) pour plusieurs microcontrôleurs dans plusieurs états. Les tests WiCAN « usage normal » ont été effectués sans aucune requête http et sans connexion BLE via CarScanner ou similaire. Ces tests ont été effectués sur le faisceau CAN sélectionnable où aucune requête OBD n'est possible à notre connaissance à l'heure actuelle, de sorte que les microcontrôleurs capables d'OBD standard (WiCAN, vLinker MC+) ont probablement utilisé moins d'énergie que lors de l'interrogation active des paramètres OBD sur le port OBD normal. 
+
+\subsubsection{WiCAN original exécutant la version 4.20\_eb0.1.1-bêta19}
+\begin{enumerate}
+  \item{Utilisation normale :} 30 mA
+  \item{Utilisation de la page http :} jusqu'à 34 mA
+  \item{démarrage :} jusqu'à 36 mA
+  \item{PEUT surveiller :} jusqu'à 38 mA
+  \item{Dormir:} $<$1 mA
+\end{enumerate}
+
+\subsubsection{WiCAN personnalisé première version exécutant la version 4.20\_eb0.1.1-bêta19}
+\begin{enumerate}
+  \item{Utilisation normale du MITM :} 40 mA
+  \item{Utilisation parallèle normale :} 34 mA
+  \item{démarrage :} jusqu'à 48 mA
+\end{enumerate}
+
+\subsubsection{WiCAN Pro exécutant la version 4.50}
+\begin{enumerate}
+  \item{Utilisation normale :} 50 mA
+\end{enumerate}
+
+\subsubsection{Panda blanc virgule exécutant le dernier animatronique\_construction de panda}
+\begin{enumerate}
+  \item{Utilisation normale :} 32 mA
+\end{enumerate}
+
+\subsubsection{vLinker MC+}
+\begin{enumerate}
+  \item{Utilisation normale (pas de connexion) :} 15-18 mA
+  \item{CarScanner connecté via BLE :} 20-25 mA, jusqu'à 60 mA en pointes
+\end{enumerate}
+
+\subsection{Est-ce que ça va tuer le 12V ?}
+
+Le WiCAN dispose d'un mode d'économie d'énergie, appelé mode veille, dans lequel presque tout s'arrête et consomme très peu d'énergie. Celui-ci est normalement configuré pour démarrer en fonction de la tension 12 V de votre voiture. Si vous êtes préoccupé par votre 12V, nous vous encourageons à activer cette fonctionnalité, disponible dans l'interface WiCAN à l'adresse \href{http://192.168.80.1}{http://192.168.80.1} dans l'onglet 'Économie d'énergie'. Voir plus de documentation ici : \href{https://meatpihq.github.io/wican-fw/config/sleep-mode}{https://meatpihq.github.io/wican-fw/config/sleep-mode}. Nous travaillons activement à l'amélioration de cette fonctionnalité pour qu'elle soit basée sur CAN (c'est-à-dire écouter le signal d'arrêt de la voiture) plutôt que sur la tension. 
+
+Sur 7 jours avec une batterie neuve de 60 Ah 12 V, la consommation électrique typique du WiCAN personnalisé, 40 mA, consommerait $40 \unit[\mathrm{mA}] * 24 \unit[\mathrm{hours/day}] * 7 \unit[\mathrm{days}] = 6.7 Ah$, soit environ 10\% of the 12V state of charge. Unlocked and off, a 2022 Canadian Preferred AWD Ioniq 5 with no aftermarket loads draws about 1.75 A (1750 mA). After ECUs quiet down 5 minutes after locking the car, the draw is still 0.75 A (750 mA). (The car has a further "sleep" mode after 7 days of inactivity; this draw hasn't been measured here.) So, a customized WiCAN in MITM mode and not in sleep mode increases draw over the first 7 days of inactivity by 5\%.
+
+\subsection{MITM vs parallèle}
+Si le faisceau du kit de préconditionnement est en mode MITM et que votre WiCAN se met en veille, les requêtes de l'application Hyundai/Kia ne seront pas transmises. Une fonctionnalité à plus long terme sur notre liste de tâches consiste à ajouter une veille partielle qui permettra le transfert CAN mais désactivera le WiFi. Nous vous recommandons de laisser votre WiCAN en mode veille réglé sur une très basse tension, telle que 12,3 V, si le faisceau est en MITM et que vous souhaitez utiliser les requêtes de l'application Hyundai/Kia. 
+
+\section{Foire aux questions}
+\begin{enumerate}
+  \item[Question :] Comment puis-je l'installer ?
+  \item[UN:] Voir le \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/}{guides d'installation}. Si cela vous semble trop compliqué, demandez de l’aide à votre adolescent ou au magasin audio automobile le plus proche !
+  \item[Question :] Pourquoi ma caméra de recul, mon application de voiture ou toute autre fonctionnalité de l'écran central ne fonctionne-t-elle pas après l'installation ?
+  \item[UN:] Vérifiez le \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf}{guide des modes de harnais}. Si vous avez un WiCAN original ou aucun appareil branché sur le port OBD, le faisceau doit être en mode parallèle. Si vous disposez d'un WiCAN personnalisé, le harnais doit être en mode MITM.
+  \item[Question :] Est-ce que cela rend ma voiture plus facile à voler ?
+  \item[UN:] Peu probable, mais l'installation est conçue pour être difficile à voir pour plusieurs raisons, notamment pour la sécurité. Nous vous recommandons fortement de changer votre mot de passe WiCAN. 
+  \item[Question :] Est-ce que cela annulera ma garantie ?
+  \item[UN:] Vérifiez la garantie de votre pays et la loi sur la protection des consommateurs. Aux États-Unis, la loi Magnusson-Moss sur la garantie offre de solides protections aux consommateurs. Dans de nombreux cas, les menaces des constructeurs automobiles concernant les pièces de rechange « annulant les garanties » ne tiennent pas devant les tribunaux. (Il ne s'agit pas d'un avis juridique.) Dans le même temps, le diagnostic des problèmes par un technicien automobile est un défi, et nous recommandons fortement le retrait des pièces et accessoires de rechange qui pourraient compliquer le diagnostic. Par exemple, si vous rencontrez des problèmes d'unité principale ou de port USB, c'est une bonne idée de désinstaller ce kit avant d'emmener votre voiture chez un concessionnaire pour éviter les complications de diagnostic. 
+  \item[Question :] Quelle est la configuration recommandée du kit pour amener ma voiture chez le concessionnaire pour un entretien de base ?
+  \item[UN:] Nous vous recommandons de débrancher votre WiCAN et de vous assurer que votre harnais est en \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf}{mode parallèle}.
+  \item[Question :] Et si je veux le construire moi-même ?
+  \item[UN:] Fais-le! Tout ce que nous avons fait est \href{https://github.com/tylerharvey/Ioniq5_CAN}{source ouverte}. N'hésitez pas à utiliser le schéma du faisceau de câblage pour construire quelque chose vous-même. Les connecteurs sont disponibles sur AliExpress. Cependant, si vous apportez une contribution à la connaissance du public sous la forme d'une pull request au \href{https://github.com/dragz/egmpdbc}{Fichier DBC} ou autre chose, des remises sont disponibles qui ramèneront le coût net à un prix compétitif par rapport au bricolage avec beaucoup moins de main d'œuvre.
+  \item[Question :] Pourquoi ne peut-il pas s'agir d'une mise à jour logicielle ?
+  \item[UN:] Cela pourrait être le cas. Nous devinons pourquoi Hyundai/Kia n’a pas inclus cela dans une mise à jour de navigation. Si tu sais comment \href{https://discord.gg/zyrngQ5qQ}{pirater votre unité principale} et avez trouvé les fonctions de l'interface CAN, vous êtes invités à ajouter \href{https://www.reddit.com/r/KiaEV6/comments/1jdd56u/comment/mid9xie/}{un bouton de préconditionnement manuel sur votre unité principale}. Cependant, la distribution de micrologiciels piratés n'est pas possible pour le moment, donc une « mise à jour » de rechange serait difficile à rendre largement disponible.
+  \item[Question :] Puis-je implémenter cela sur mon appareil Comma ?
+  \item[UN:] Nous avons testé cela et ne pensons pas que cela fonctionne. Il ne semble y avoir aucun transfert de messages de préconditionnement depuis les bus CAN A ou E sur lesquels se trouve la virgule vers les bus M ou G sur lesquels se trouve le BMU.
+  \item[Question :] Est-ce que cela va tuer mon ICCU ?
+  \item[UN:] Non.
+  \item[Question :] Puis-je utiliser la navigation intégrée tout en utilisant ce kit ?
+  \item[UN:] Avec la version bêta, cela n'est pas possible. Ce problème sera résolu avec le WiCAN personnalisé.
+  \item[Question :] Une mise à jour de la navigation affectera-t-elle ma capacité à utiliser le kit ?
+  \item[UN:] C'est très peu probable, car le kit ne dépend pas de la communication avec l'unité principale. Une mise à jour de l'unité de gestion de la batterie pourrait être possible (par exemple, la mise à jour qui permettait le préconditionnement rétroactivement sur les premiers Ioniq 5), mais nous pensons que cela doit être effectué par les concessionnaires. Cependant, nous ne pouvons pas promettre avec 100\% certainty that a navigation update will not affect the functionality of the kit. In the off chance that this does happen, let us know and we will do our best to update logic to restore manual preconditioning functionality.
+  \item[Question :] Pourquoi le compte à rebours ? Pourquoi ne pouvez-vous pas simplement commencer le préconditionnement immédiatement après avoir appuyé sur un bouton ?
+  \item[UN:] L'unité de gestion de la batterie (l'ECU à l'intérieur de la batterie qui contient le BMS) dispose d'un délai d'attente intégré de 60 secondes après la demande de préconditionnement initiale. Si la demande s'arrête avant l'expiration du délai d'attente de 60 secondes, le préconditionnement ne démarrera pas. Nous avons donc essayé de rendre cette attente de 60 secondes évidente et claire pour l'utilisateur.
+  \item[Question :] Veux-tu me construire un nouveau bouton ?
+  \item[UN:] Peut être! Envoyez-nous un courriel à \href{mailto:requests@electroniqbuttons.com}{requêtes@electronicbuttons.com} avec vos demandes.
+  \item[Question :] Votre entreprise s'appelle « Electroniq Buttons Boutique ». Où sont les boutons physiques ?
+  \item[UN:] Nous travaillons à rendre disponibles les boutons physiques. Roy a un prototype testé présenté dans son \href{https://github.com/dragz/ironiq}{Ironique} dépôt.
+\end{enumerate}
+% \begin{figure}[h]
+%   \subfloat[]{\label{subfig:overview:harness}
+%   \includegraphics[height=1.95in]{photos/whole_harness.jpg} }
+%   \subfloat[]{\label{subfig:overview:shunt_cap_labeled}
+%   \includegraphics[height=1.95in]{photos/labeled_connectors_MITM_harness.jpg} }
+%    \caption{(a) Man-in-the-middle harness. (b) Overview of connectors showing shunt cap. \label{fig:overview}}
+% \end{figure}
+\appendix 
+\bibliographystyle{apsrev4-1}
+\bibliography{stemh_model}{}
+\end{document}
