@@ -8,7 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
-   sodipodi:docname="logo_only.svg"
+   sodipodi:docname="logo_only_bkgd.svg"
+   inkscape:export-filename="logo_only_bkgd.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,8 +29,8 @@
      showgrid="true"
      showguides="false"
      inkscape:zoom="0.20029613"
-     inkscape:cx="636.55747"
-     inkscape:cy="464.31251"
+     inkscape:cx="634.06118"
+     inkscape:cy="464.31252"
      inkscape:window-width="1366"
      inkscape:window-height="663"
      inkscape:window-x="0"
@@ -60,6 +63,16 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(31.750022,-42.333314)">
+    <rect
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.264999;stroke-linecap:round;fill-opacity:1"
+       id="rect2"
+       width="243.41666"
+       height="243.41669"
+       x="-31.749998"
+       y="42.333336"
+       inkscape:export-filename="logo_only_bkgd.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
     <g
        id="g34"
        transform="rotate(180,79.780704,169.22228)">
