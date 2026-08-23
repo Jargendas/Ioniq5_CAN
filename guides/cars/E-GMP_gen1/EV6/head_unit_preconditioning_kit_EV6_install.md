@@ -187,3 +187,7 @@ Mount 2B allows you to remove the WiCAN without removing the front console cover
 ## Reassembly
 
 Follow the trim removal instructions in reverse to reassemble everything.
+
+# Step 3: Clean Up
+
+Reconnect the 12 V battery negative terminal. The WiCAN should immediately show a blue light. Change your WiCAN password: [https://meatpihq.github.io/wican-fw/config/wifi](https://meatpihq.github.io/wican-fw/config/wifi). You can connect to your WiCAN directly by finding a WiFi network named `WiCAN_xxxxxxx` and going to [http://192.168.80.1/](http://192.168.80.1/) in your browser.

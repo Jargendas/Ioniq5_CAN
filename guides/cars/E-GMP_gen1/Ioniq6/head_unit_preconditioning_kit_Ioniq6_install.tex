@@ -42,16 +42,13 @@ This guide walks you through the steps needed to install the head unit precondit
   \item[Step 3: Harness Connection] 
   \item[Step 4: OBD Mount] 
   \item[Step 4.5: WiCAN Plug-In] 
+  \item[Step 5: Clean up] 
 \end{description}
 \end{abstract}
 \title{Preconditioning kit install guide: Ioniq 6}
 \author{Ioniq Guy}
 \author{Electroniq Buttons Boutique}
 \email{support@electroniqbuttons.com}
-% \affiliation{\GOE}
-% \author{Benjamin J. McMorran}
-% \email{mcmorran@uoregon.edu}
-% \affiliation{\UO}
 \date{\today}
 
 \maketitle
@@ -65,7 +62,7 @@ This guide walks you through the steps needed to install the head unit precondit
 \end{figure}
 
 \section{Introduction}
-  The purpose of this guide is to illustrate step-by-step instructions for installing the head unit preconditioning kit, or just the head unit man-in-the-middle (MITM) harness, shown in Figure \ref{subfig:overview:harness}. In section \ref{sect:1}, we describe the trim removal process to access the head unit. In section \ref{sect:2}, we describe the process of plugging in the harness. In section \ref{sect:3}, we show attachment of the OBD port and how to plug in the microcontroller. 
+  The purpose of this guide is to illustrate step-by-step instructions for installing the head unit preconditioning kit, or just the head unit man-in-the-middle (MITM) harness, shown in Figure \ref{subfig:overview:harness}. In section \ref{sect:2}, we describe the trim removal process to access the head unit. In section \ref{sect:3}, we describe the process of plugging in the harness. In section \ref{sect:4}, we show attachment of the OBD port and how to plug in the microcontroller. 
 
 Necessary tools:
 \begin{enumerate}
@@ -82,7 +79,7 @@ Kit components:
   \item 4 zip ties
 \end{enumerate}
   
-\section{Step 1: Remove 12V Negative Terminal} \label{sect:0}
+\section{Step 1: Remove 12V Negative Terminal} \label{sect:1}
 First, always disconnect the 12V battery before removing any electrical connectors! Removing a live electrical connector could cause a discharge and destroy a connector or ECU in your car.
 
 Step-by-step instructions:
@@ -109,7 +106,7 @@ Step-by-step instructions:
    % \caption{(a) Open the hood. (b) Remove panel covering 12V. (c) Loosen nut on negative terminal. (d) Remove negative terminal. \label{fig:12V}}
 \end{figure}
 
-\section{Step 2: Trim} \label{sect:1}
+\section{Step 2: Trim} \label{sect:2}
 The goal here is to get to the treasure chest: the head unit. It's behind a single trim panel called the Crash Pad Under Cover, marked with an X in Figure \ref{fig:step1}.
 \begin{figure}[h]
   \subfloat[]{\label{subfig:step1:X}
@@ -119,10 +116,10 @@ The goal here is to get to the treasure chest: the head unit. It's behind a sing
 
 Step-by-step instructions:
 \begin{enumerate}
-  \item Remove crash crash pad under cover (Figure \ref{subfig:trim:crash_pad_under_cover}): 
+  \item Remove crash pad under cover (Figure \ref{subfig:trim:crash_pad_under_cover}): 
     \begin{enumerate}
       \item Use a trim removal tool to gently pry to expose one of the three clips (Figure \ref{subfig:trim:open})
-      \item Press on the tab on the clip, indicated by Corbin's thumb in Figure \ref{subfig:trim:open}, to release the clip
+      \item Press on the tab on the clip, indicated by the thumb in Figure \ref{subfig:trim:open}, to release the clip
     \end{enumerate}
   \item Remove screws holding head unit in place (Figure \ref{subfig:trim:HU_screws})
 \end{enumerate}
@@ -140,7 +137,7 @@ Step-by-step instructions:
 \end{figure}
 
 
-\section{Step 3: Harness Connection} \label{sect:2}
+\section{Step 3: Harness Connection} \label{sect:3}
 This step covers the installation of the harness into the head unit. 
 
 Step-by-step instructions:
@@ -164,7 +161,7 @@ Step-by-step instructions:
   \includegraphics[height=1.5in,angle=0]{photos/HU_dangling_clip_detached_2.jpg} }  
    \caption{(a) Labeled photo showing female harness connector. (b) Male harness connector. (c) Head unit with original connectors plugged in. (d) Female connector (grey) removed from head unit. (e) Harness installed in head unit. \label{fig:harness}}
 \end{figure}
-\section{Step 4: OBD Mount} \label{sect:3}
+\section{Step 4: OBD Mount} \label{sect:4}
 In this step, we mount the OBD end of the harness securely and plug in the WiCAN. 
 
 Step-by-step instructions:
@@ -187,7 +184,7 @@ Step-by-step instructions:
    \caption{(a) OBD threaded over head unit mount bracket. (b) Harness zip-tied to existing wire. (c) WiCAN inserted into OBD. \label{fig:obd}}
 \end{figure}
 
-\section{Step 5: Clean up} \label{sect:4}
-Reverse the trim removal steps. Make sure trim clips are aligned, and then firmly pop the trim panels back into place. Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. Change your WiCAN password: \href{https://meatpihq.github.io/wican-fw/config/wifi}{https://meatpihq.github.io/wican-fw/config/wifi}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
+\section{Step 5: Clean up} \label{sect:5}
+Reverse the trim removal steps. Make sure trim clips are aligned, and then firmly pop the trim panels back into place. Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. Change your WiCAN password: \href{https://meatpihq.github.io/wican-fw/config/wifi}{https://meatpihq.github.io/wican-fw/config/wifi}. You can connect to your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
 % \appendix 
 \end{document}

@@ -44,7 +44,7 @@
 
 
 \section{Which cars can use this?} \label{sect:eligibility}
-The kit is designed to work on most 2021-2024 Ioniq 5s, 2022-2025 Ioniq 6s, and 2022-2024 EV6s. We have tested on Ioniq 5s from three different markets, as well as one Ioniq 6 and one EV6. \href{mailto:requests@electroniqbuttons.com}{Contact us} if you're interested in using the kit on a different car. The kit will only work if you have a battery heater. To assess that, please check for the `Battery Conditioning Mode' menu in `EV $\to$ EV Settings' (see Fig. \ref{subfig:menus:EVsettings}) on your car's head unit (center screen) (see Fig. \ref{subfig:menus:batt_cond}).
+The kit is designed to work on most 2021-2024 Ioniq 5s, 2023-2025 Ioniq 6s, and 2021-2024 EV6s. We have tested on Ioniq 5s from three different markets, as well as one Ioniq 6 and one EV6. \href{mailto:requests@electroniqbuttons.com}{Contact us} if you're interested in using the kit on a different car. The kit will only work if you have a battery heater. To assess that, please check for the `Battery Conditioning Mode' menu in `EV $\to$ EV Settings' (see Fig. \ref{subfig:menus:EVsettings}) on your car's head unit (center screen) (see Fig. \ref{subfig:menus:batt_cond}).
 \begin{figure}[h]
   \subfloat[]{\label{subfig:menus:EVsettings}
   \includegraphics[height=1.95in]{photos/EV_settings.jpg} }
@@ -71,9 +71,9 @@ To configure the manual preconditioning behavior, connect to the WiCAN WiFi and 
    \caption{Screenshot of ``Buttons'' page in WiCAN http configuration.}
 \end{figure}
 
-The first option, ``Preconditioning Mode'', is currently in development and has only one allowed option: once. After triggering a single preconditioning cycle, preconditoining will stop. We are working on ``Continuous'' and ``Persistent'' modes that will allow the BMS to automatically re-heat the battery if the temperature drops either until the car is powered off (``Continuous'') or even through car on-off cycles (``Persistent'').
+The first option, ``Preconditioning Mode'', is currently in development and has only one allowed option: once. After triggering a single preconditioning cycle, preconditioning will stop. We are working on ``Continuous'' and ``Persistent'' modes that will allow the BMS to automatically re-heat the battery if the temperature drops either until the car is powered off (``Continuous'') or even through car on-off cycles (``Persistent'').
 
-The second option allows you a choice of button to map preconditioning onto. More options will be available with the customized WiCAN in man-in-the-middle mode. By default, 5 options are displayed:
+The second option allows you a choice of button to map preconditioning onto. More options will be available with the customized WiCAN (a replacement microcontroller shipping in October) in man-in-the-middle mode. By default, 5 options are displayed:
 \begin{enumerate}
   \item Disabled
   \item Star Button (Steering Wheel) -- Default
@@ -100,7 +100,7 @@ With ``Disabled'', no button will trigger preconditioning. This may be desirable
 \end{tasks}
 Pick the button that works for you! We hope to offer physical buttons soon.
 
-To activate preconditioning manually, just press the activation button you've chosen. You should immediately see a countdown in meters/yards on your cluster that hijacks the distance-to-destination indicator. If you have cruise control on, the blocks the most obvious display of the distance-to-destination indicator. Use the pages button on the steering wheel to navigate to the cluster page that shows navigation instructions. Preconditioning starts when this countdown reaches zero. If the countdown resets, that means something unexpected happened and it's retrying. 
+To activate preconditioning manually, just press the activation button you've chosen. You should immediately see a countdown in meters/yards on your cluster that hijacks the distance-to-destination indicator. If you have cruise control on, it blocks the most obvious display of the distance-to-destination indicator. Use the pages button on the steering wheel to navigate to the cluster page that shows navigation instructions. Preconditioning starts when this countdown reaches zero. If the countdown resets, that means something unexpected happened and it's retrying. 
 
 When preconditioning activates, you'll see the standard popup saying, `Battery preconditioning activated for optimal DC charging', shown in Figure \ref{subfig:precon:popup}. You'll also get a snowflake or red coil icon over the battery symbol in the lower lefthand corner of the cluster, shown in Figure \ref{subfig:precon:coil}.
 
@@ -171,7 +171,7 @@ The WiCAN has a power saving mode available, called sleep mode, where almost eve
 Over 7 days with a fresh 60Ah 12V battery, the customized WiCAN's typical power usage, 40 mA, would consume $40 \unit[\mathrm{mA}] * 24 \unit[\mathrm{hours/day}] * 7 \unit[\mathrm{days}] = 6.7 Ah$, which is about 10\% of the 12V state of charge. Unlocked and off, a 2022 Canadian Preferred AWD Ioniq 5 with no aftermarket loads draws about 1.75 A (1750 mA). After ECUs quiet down 5 minutes after locking the car, the draw is still 0.75 A (750 mA). (The car has a further "sleep" mode after 7 days of inactivity; this draw hasn't been measured here.) So, a customized WiCAN in MITM mode and not in sleep mode increases draw over the first 7 days of inactivity by 5\%.
 
 \subsection{MITM vs. Parallel}
-If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep, Hyundai/Kia app requests will not go through. A longer-term feature on our task list is to add a partial sleep that will allow CAN forwarding but disable WiFi. We recommend leaving your WiCAN with sleep mode set to a very low voltage, such as 12.3V, if the harness is in MITM and you want to use Hyundai/Kia app requests. 
+If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep, Hyundai/Kia app requests will not go through. A longer-term feature on our task list is to add a partial sleep that will allow CAN forwarding but disable WiFi. If the harness is in MITM mode and you want to use Hyundai/Kia app requests, we recommend setting the sleep-mode voltage threshold low, such as 12.3V (well below the resting voltage of a healthy 12V battery), so that the WiCAN stays awake during normal operation. 
 
 \section{Frequently Asked Questions}
 \begin{enumerate}
@@ -184,7 +184,7 @@ If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep,
   \item[Q:] Will this void my warranty?
   \item[A:] Check your country's warranty and consumer protection law. In the US, the Magnusson-Moss Warranty Act offers strong consumer protections. Automaker threats about aftermarket parts ``voiding warranties'' in many cases do not hold up in court. (This is not legal advice.) At the same time, diagnosis of problems by an automotive technician is challenging, and we highly recommend removal of aftermarket parts and accessories that could make diagnosis more complicated. For example, if you are encountering head unit or USB port problems, it is a good idea to de-install this kit before taking your car into a dealership to avoid complications with diagnosis. 
   \item[Q:] What is the recommended configuration of the kit for taking my car into the dealership for basic service?
-  \item[A:] We recommend that you unplug your WiCAN and ensure that your harness is in \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf}{paralllel mode}.
+  \item[A:] We recommend that you unplug your WiCAN and ensure that your harness is in \href{https://github.com/tylerharvey/Ioniq5_CAN/blob/main/guides/harnesses/head_unit_MITM/MITM_harness_modes.pdf}{parallel mode}.
   \item[Q:] What if I want to build this myself?
   \item[A:] Do it! Everything we've done is \href{https://github.com/tylerharvey/Ioniq5_CAN}{open-source}. Feel free to use the wiring harness diagram to build something yourself. The connectors are available on AliExpress. However, if you make a contribution to public knowledge in the form of a pull request to the \href{https://github.com/dragz/egmpdbc}{DBC file} or something else, rebates are available that will bring the net cost down to competitive-with-DIY pricing with a lot less labor.
   \item[Q:] Why can't this be a software update?
@@ -200,7 +200,7 @@ If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep,
   \item[Q:] Why the countdown? Why can't you just start preconditioning immediately upon button press?
   \item[A:] The battery management unit (the ECU inside the battery that contains the BMS) has a built-in 60-second timeout after the initial preconditioning request. If the request stops before the 60-second timeout passes, preconditioning won't start. So we've tried to make this 60-second wait obvious and clear to the user.
   \item[Q:] Will you build me a new button?
-  \item[A:] Maybe! Email us at \href{mailto:requests@electroniqbuttons.com}{requests@electronicbuttons.com} with your requests.
+  \item[A:] Maybe! Email us at \href{mailto:requests@electroniqbuttons.com}{requests@electroniqbuttons.com} with your requests.
   \item[Q:] Your business is called `Electroniq Buttons Boutique'. Where are the physical buttons?
   \item[A:] We are working on making physical buttons available. Roy has a tested prototype shown in his \href{https://github.com/dragz/ironiq}{Ironiq} repository.
 \end{enumerate}
@@ -212,6 +212,4 @@ If the preconditioning kit harness is in MITM mode and your WiCAN goes to sleep,
 %    \caption{(a) Man-in-the-middle harness. (b) Overview of connectors showing shunt cap. \label{fig:overview}}
 % \end{figure}
 \appendix 
-\bibliographystyle{apsrev4-1}
-\bibliography{stemh_model}{}
 \end{document}

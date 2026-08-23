@@ -38,16 +38,12 @@
   This guide walks you through the steps needed to install the Selectable CAN harness in your 2021-2024 EV6. See also the \href{https://youtube.com/playlist?list=PLYCTmVJH4UYqnw87UZAaqMo1GrOv0cJaL}{video guides}:
   \begin{description}
     \item[Step 1: Disconnect 12V] \href{https://youtu.be/ePBdyeBYKk4}{video guide}
-    \item[Step 2: Install Harness] \href{https://youtu.be/kVvkR4ZLFMI}{harness intall guide}
+    \item[Step 2: Install Harness] \href{https://youtu.be/kVvkR4ZLFMI}{harness install guide}
   \end{description}
 \end{abstract}
 \title{Selectable CAN install guide}
 \author{Electroniq Buttons Boutique}
 \email{support@electroniqbuttons.com}
-% \affiliation{\GOE}
-% \author{Benjamin J. McMorran}
-% \email{mcmorran@uoregon.edu}
-% \affiliation{\UO}
 \date{\today}
 
 \maketitle
@@ -61,7 +57,7 @@
 % \end{figure}
 
 \section{Introduction}
-This guide describes the steps to install the selectable CAN harness into an EV6 ICU. See also \href{https://github.com/dragz/explorationsincarhacking/blob/main/articles/getting_past_the_secure_gateway/getting_past_the_secure_gateway.md}{these instructions} on identifying and acessing the ICU-H connector. The install is very similar to the Ioniq 5 install, and photos of an Ioniq 5 are used for now.
+This guide describes the steps to install the selectable CAN harness into an EV6 ICU. See also \href{https://github.com/dragz/explorationsincarhacking/blob/main/articles/getting_past_the_secure_gateway/getting_past_the_secure_gateway.md}{these instructions} on identifying and accessing the ICU-H connector. The install is very similar to the Ioniq 5 install, and photos of an Ioniq 5 are used for now.
 
 Necessary tools:
 \begin{enumerate}
@@ -78,7 +74,7 @@ Kit components:
   \item 4 zip ties
 \end{enumerate}
   
-\section{Step 1: Remove 12V Negative Terminal} \label{sect:0}
+\section{Step 1: Remove 12V Negative Terminal} \label{sect:1}
 First, always disconnect the 12V battery before removing any electrical connectors! Removing a live electrical connector could cause a discharge and destroy a connector or ECU in your car.
 
 Step-by-step instructions:
@@ -124,12 +120,10 @@ Step-by-step instructions:
   \includegraphics[height=1.5in,angle=0]{../Ioniq5/photos/icu-h_harness_in.jpg} }  
   \subfloat[]{\label{subfig:harness:obd_mount}
   \includegraphics[height=1.5in,angle=0]{../Ioniq5/photos/obd_mounted_icuh.jpg} } 
-   \caption{(a) Fuse tap doubled with dashcam fuse tap on spare 2. Note that this will not work as depicted and requires a second fuse on the lower fuse tap. (b) ICU-H (green arrow) with harness installed; male harnesss connector (red arrow) mated with original female connector. (c) OBD port mounted on bracket. \label{fig:harness}}
+   \caption{(a) Fuse tap doubled with dashcam fuse tap on spare 2. Note that this will not work as depicted and requires a second fuse on the lower fuse tap. (b) ICU-H (green arrow) with harness installed; male harness connector (red arrow) mated with original female connector. (c) OBD port mounted on bracket. \label{fig:harness}}
 \end{figure}
 
-\section{Step 3: Clean up} \label{sect:4}
-Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. \href{https://meatpihq.github.io/wican-fw/config/wifi}{Change your WiCAN password!}. You can connect you your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
+\section{Step 3: Clean up} \label{sect:3}
+Reconnect 12V battery negative terminal. The WiCAN should immediately show a blue light. \href{https://meatpihq.github.io/wican-fw/config/wifi}{Change your WiCAN password!}. You can connect to your WiCAN directly by finding a WiFi network named 'WiCAN\_xxxxxxx' and going to \href{http://192.168.80.1/}{http://192.168.80.1/} in your browser.
 \appendix 
-\bibliographystyle{apsrev4-1}
-\bibliography{stemh_model}{}
 \end{document}
