@@ -175,7 +175,7 @@ In this option, stick the OBD bracket to the crash pad lower trim. Run the harne
 ### Option 2: Inside front console cover
 This option is easiest if you've already removed the front console cover as part of the quick install approach. This mount location keeps the kit very well hidden, but the WiCAN is less accessible. There are two good mount points within this approach:
 ### Mount Option 2A
-Attach the OBD mount bracket to the plastic ventilaton duct. 
+Attach the OBD mount bracket to the plastic ventilation duct. 
   ![](photos/OBD_mount_1.jpg)
 ### Mount Option 2B
 Attach the OBD mount bracket to the inner surface of the steel beam.  
