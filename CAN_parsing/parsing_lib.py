@@ -148,3 +148,52 @@ def return_interesting_timestamps(dict_name,frame_ids):
             timestamps.append(dict_name['timestamps'][indices][max_diff])
     return timestamps
 
+def return_frame_series(dict_name, frame_id, bus=None):
+    '''
+    Return (timestamps, messages) for a single frame ID, in chronological order.
+    If `bus` is given, only messages on that bus are included.
+    '''
+    if(bus is not None):
+        indices = np.argwhere((dict_name['ids'] == frame_id)*(dict_name['bus'] == bus))[:,0]
+    else:
+        indices = np.argwhere(dict_name['ids'] == frame_id)[:,0]
+    if(len(indices) == 0):
+        return np.array([]), np.empty((0,8), dtype=dict_name['messages'].dtype)
+    order = np.argsort(dict_name['timestamps'][indices], kind='stable')
+    indices = indices[order]
+    return dict_name['timestamps'][indices], dict_name['messages'][indices]
+
+def return_value_transitions(timestamps, values):
+    '''
+    Given parallel timestamp and value arrays, return the indices, times,
+    from-values and to-values where the value changes between consecutive samples.
+    '''
+    if(len(values) < 2):
+        return np.array([], dtype=int), np.array([], dtype=timestamps.dtype), np.array([]), np.array([])
+    change_mask = np.zeros(len(values), dtype=bool)
+    change_mask[1:] = values[1:] != values[:-1]
+    indices = np.argwhere(change_mask)[:,0]
+    from_values = values[indices-1]
+    to_values = values[indices]
+    return indices, timestamps[indices], from_values, to_values
+
+def return_frame_IDs_with_limited_message_changes(dict_name, threshold=10, bus=None):
+    '''
+    Search for control-signal candidate frames: frames whose message payload
+    takes a small (1 < n_unique <= threshold) set of distinct values, i.e. they
+    change between a limited set of discrete states. Physical sensors usually
+    have a near-infinite number of values and are excluded by `threshold`.
+    '''
+    frames = []
+    for frame_id in np.unique(dict_name['ids']):
+        if(bus is not None):
+            indices = np.argwhere((dict_name['ids'] == frame_id)*(dict_name['bus'] == bus))[:,0]
+        else:
+            indices = np.argwhere(dict_name['ids'] == frame_id)[:,0]
+        if(len(indices) == 0):
+            continue
+        unique_count = len(np.unique(dict_name['messages_unique_ids'][indices]))
+        if(1 < unique_count <= threshold):
+            frames.append((frame_id, unique_count))
+    return frames
+
