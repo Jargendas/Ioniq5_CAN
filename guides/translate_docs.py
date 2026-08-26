@@ -20,8 +20,7 @@ Workflow
 
        ./translate_docs.py --to fr guides/manuals/preconditioning_manual.tex
        ./translate_docs.py --to de --all
-       ./translate_docs.py --to es -o /tmp/translations guides/manuals/*.tex \
-                           guides/cars/*/*/*.md
+       ./translate_docs.py --to es -o /tmp/translations guides/manuals/*.tex guides/cars/*/*/*.md
 
   2. Sanity check: no Private-Use-Area placeholder characters should remain.
 
@@ -40,18 +39,61 @@ Workflow
   4. Spot check a few translated sections by eye; machine translation is
      not perfect.
 
+Quick examples
+--------------
+     # free endpoint (no key needed)
+     ./translate_docs.py --to de guides/manuals/preconditioning_manual.tex
+
+     # paid API, key from env var
+     GOOGLE_TRANSLATE_API_KEY=$KEY ./translate_docs.py --to es --all
+
+     # paid API, key in a GPG-encrypted file
+     echo -n "$KEY" | gpg -c -o api_key.gpg
+     ./translate_docs.py --api-key-file api_key.gpg --to fr -o /tmp/translations guides/manuals/*.tex guides/cars/*/*/*.md
+
+     # translate and compile to PDF in one go
+     ./translate_docs.py --api-key-file api_key.gpg --to it --compile guides/manuals/welcome_precon.tex
+
+     # just compile existing translated files, no translation
+     ./translate_docs.py --compile-only --all
+
+     # see what would be done without calling Google
+     ./translate_docs.py --to nl --dry-run guides/manuals/preconditioning_manual.tex
+
 Notes
 -----
-  * Uses the free/unofficial endpoint
+  * Defaults to the free/unofficial endpoint
     https://translate.googleapis.com/translate_a/single?client=gtx
     No API key required; keep --delay modest to avoid rate limits.
+  * With --api-key, --api-key-file, or the GOOGLE_TRANSLATE_API_KEY
+    environment variable the paid Google Cloud Translation API v2 endpoint
+    https://translation.googleapis.com/language/translate/v2 is used instead.
+    The request pins model=nmt (Neural Machine Translation), the
+    price-optimized product: the first 500,000 characters/month are free and
+    it costs $20/million characters after that (vs $80/M for Custom
+    Translation and $25/M each way for Adaptive Translation).
+    --api-key-file decrypts the key with `gpg -d FILE`, keeping it out of
+    shell history. The paid endpoint has higher rate limits and counts against
+    your billing quota.
   * Originals are never modified: output is written to
     basename.<lang><ext> next to the source (or into --out-dir).
+  * Change detection: each translated output embeds a comment tagging the
+    source file and the git commit it was translated from
+    (`% translate_docs: FILE @ COMMIT` / `<!-- translate_docs: ... -->`).
+    Re-running `--to` on an output whose source has not changed since that
+    commit skips translation; `--compile-only` skips compiling a translated
+    file whose embedded commit still matches its working-tree content.
+    This requires a git repo; outside one, everything is always processed.
+  * Only files tracked by git are processed: untracked files are skipped.
+    All git-based features (tracking filter, change detection, embedded
+    commit tags) require a git repo; outside one, only files explicitly
+    listed as arguments are translated.
   * For .tex, if the target language is known to babel the preamble is patched
     to select that language (--no-babel disables this).
 """
 
 import argparse
+import html
 import json
 import os
 import re
@@ -61,8 +103,10 @@ import time
 import urllib.parse
 import urllib.request
 
-API = "https://translate.googleapis.com/translate_a/single"
+API_PAID = "https://translation.googleapis.com/language/translate/v2"
+API_FREE = "https://translate.googleapis.com/translate_a/single"
 HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) translate_docs"}
+API_KEY_ENV = "GOOGLE_TRANSLATE_API_KEY"
 PUA_START = 0xE000
 PUA_END = 0xF8FF
 PUA_RE = re.compile(r"[\ue000-\uf8ff]")
@@ -154,15 +198,30 @@ class Protector:
         return text
 
 
-def gtx(text, source, target):
-    url = "{}?client=gtx&sl={}&tl={}&dt=t&q={}".format(
-        API, source, target, urllib.parse.quote(text))
+def gtx(text, source, target, api_key=None):
+    """Translate `text` from `source` to `target`. With an API key the paid
+    Google Cloud Translation API v2 is used; otherwise the free endpoint."""
+    if api_key:
+        params = {"q": text, "target": target, "format": "text",
+                  "model": "nmt"}
+        if source != "auto":
+            params["source"] = source
+        url = "{}?key={}&{}".format(
+            API_PAID, urllib.parse.quote(api_key),
+            urllib.parse.urlencode(params))
+    else:
+        params = {"client": "gtx", "sl": source, "tl": target,
+                  "dt": "t", "q": text}
+        url = "{}?{}".format(API_FREE, urllib.parse.urlencode(params))
     last = None
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
             req = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(req, timeout=30) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+            if api_key:
+                return html.unescape(
+                    data["data"]["translations"][0]["translatedText"])
             return "".join(seg[0] for seg in data[0])
         except Exception as exc:  # noqa: BLE001 - retry any transient failure
             last = exc
@@ -185,11 +244,11 @@ def _split(text):
     return pieces
 
 
-def translate(text, source, target, delay):
+def translate(text, source, target, delay, api_key=None):
     pieces = _split(text)
     out = []
     for i, piece in enumerate(pieces):
-        out.append(gtx(piece, source, target))
+        out.append(gtx(piece, source, target, api_key=api_key))
         if i < len(pieces) - 1:
             time.sleep(delay)
     return " ".join(out)
@@ -199,7 +258,7 @@ def _has_letters(text):
     return re.search(r"[^\W\d_]", PUA_RE.sub("", text)) is not None
 
 
-def translate_spans(protected, source, target, delay):
+def translate_spans(protected, source, target, delay, api_key=None):
     """Translate only the pure-text spans of a protected block. Protected
     (PUA-placeholder) spans and punctuation-only spans are kept verbatim, so
     Google never sees markup and cannot drop or reorder it."""
@@ -214,24 +273,26 @@ def translate_spans(protected, source, target, delay):
             lead = part[:len(part) - len(part.lstrip())]
             trail = part[len(part.rstrip()):]
             core = part.strip()
-            out.append(lead + translate(core, source, target, delay) + trail)
+            out.append(lead + translate(core, source, target, delay,
+                                        api_key=api_key) + trail)
     return "".join(out)
 
 
-def translate_block(block, rules, source, target, delay):
+def translate_block(block, rules, source, target, delay, api_key=None):
     """Protect, translate, restore one block. Falls back to per-line
     translation if Google collapses/expands the number of newlines."""
     prot = Protector()
     protected = prot.protect(block, rules)
     if not _has_letters(protected):
         return block
-    translated = translate_spans(protected, source, target, delay)
+    translated = translate_spans(protected, source, target, delay,
+                                 api_key=api_key)
     if translated.count("\n") != block.count("\n"):
         lines = []
         for line in block.split("\n"):
             p = Protector()
             t = p.restore(translate_spans(p.protect(line, rules), source,
-                                          target, delay))
+                                          target, delay, api_key=api_key))
             lines.append(t)
             time.sleep(delay)
         translated = "\n".join(lines)
@@ -339,7 +400,8 @@ def patch_babel(tex_text, lang):
     return tex_text
 
 
-def translate_markdown(text, source, target, delay, update_anchors=True):
+def translate_markdown(text, source, target, delay, update_anchors=True,
+                       api_key=None):
     blocks = re.split(r"\n[ \t]*\n", text)
     headings, trans_texts, out = [], [], []
     for bi, block in enumerate(blocks):
@@ -348,7 +410,8 @@ def translate_markdown(text, source, target, delay, update_anchors=True):
             out.append(block)
             continue
         hl = heading_lines(block)
-        translated = translate_block(block, MD_RULES, source, target, delay)
+        translated = translate_block(block, MD_RULES, source, target, delay,
+                                     api_key=api_key)
         out.append(translated)
         if hl:
             for line_no, _, orig_text in hl:
@@ -365,14 +428,15 @@ def translate_markdown(text, source, target, delay, update_anchors=True):
     return result
 
 
-def translate_tex(text, source, target, delay, patch_babel_flag=True):
+def translate_tex(text, source, target, delay, patch_babel_flag=True,
+                  api_key=None):
     marker = "\\begin{document}"
     start = text.find(marker)
     if start == -1:
         raise ValueError("no \\begin{document} found (is this a .tex file?)")
     body = text[start:]
     body = "\n\n".join(
-        translate_block(b, TEX_RULES, source, target, delay)
+        translate_block(b, TEX_RULES, source, target, delay, api_key=api_key)
         for b in re.split(r"\n[ \t]*\n", body))
     result = text[:start] + body
     if patch_babel_flag:
@@ -434,6 +498,76 @@ def collect_all(include_translated=False):
     return sorted(found)
 
 
+TAG_RE = re.compile(
+    r"^(?:%|<!--) translate_docs: (\S+) @ ([0-9a-f]{40,})(?: -->)?\s*$",
+    re.MULTILINE)
+
+
+def _git(args):
+    """Run a git subcommand in the script's working dir; None on failure."""
+    try:
+        return subprocess.run(["git"] + args, capture_output=True, text=True)
+    except OSError:
+        return None
+
+
+def git_repo():
+    """True if running inside a git work tree."""
+    r = _git(["rev-parse", "--is-inside-work-tree"])
+    return r is not None and r.returncode == 0 \
+        and r.stdout.strip() == "true"
+
+
+def git_commit_of(path):
+    """Full commit hash that last touched `path` at HEAD, or None."""
+    r = _git(["log", "-1", "--format=%H", "--", path])
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.strip() or None
+
+
+def git_tracked(path):
+    """True if `path` is tracked by git (in the index at HEAD)."""
+    r = _git(["ls-files", "--error-unmatch", "--", path])
+    return r is not None and r.returncode == 0
+
+
+def git_unchanged_since(path, commit):
+    """True if the working-tree content of `path` is identical to its state
+    at `commit` (tracked, and no committed or uncommitted changes since)."""
+    if not commit:
+        return False
+    r = _git(["ls-files", "--error-unmatch", "--", path])
+    if r is None or r.returncode != 0:
+        return False
+    d = _git(["diff", "--quiet", commit, "--", path])
+    return d is not None and d.returncode == 0
+
+
+def git_unmodified(path):
+    """True if `path` is tracked and has no uncommitted changes (its working
+    tree matches HEAD)."""
+    r = _git(["ls-files", "--error-unmatch", "--", path])
+    if r is None or r.returncode != 0:
+        return False
+    d = _git(["diff", "--quiet", "HEAD", "--", path])
+    return d is not None and d.returncode == 0
+
+
+def read_tag(text):
+    """Extract the embedded (src, commit) tag from translated text."""
+    m = TAG_RE.search(text)
+    return (m.group(1), m.group(2)) if m else None
+
+
+def prepend_tag(ext, text, src, commit):
+    """Prefix `text` with an invisible comment recording the source path and
+    the git commit it was translated from."""
+    if ext == ".md":
+        return "<!-- translate_docs: {} @ {} -->\n\n{}".format(src, commit, text)
+    return "% translate_docs: {} @ {}\n{}".format(src, commit, text)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(
         description="Translate rendered text in .md/.tex files, preserving "
@@ -447,6 +581,14 @@ def main(argv=None):
                          "(required unless --compile-only)")
     ap.add_argument("-s", "--from", dest="source", default="auto",
                     metavar="LANG", help="source language code (default auto)")
+    ap.add_argument("-k", "--api-key", metavar="KEY",
+                    help="Google Cloud Translation API key; overrides "
+                         "$GOOGLE_TRANSLATE_API_KEY. Uses the paid v2 endpoint "
+                         "instead of the free one.")
+    ap.add_argument("--api-key-file", metavar="FILE",
+                    help="GPG-encrypted file containing the API key; decrypted "
+                         "with `gpg -d FILE` (the key is never written to "
+                         "shell history)")
     ap.add_argument("-o", "--out-dir", metavar="DIR",
                     help="write translated files into DIR")
     ap.add_argument("--delay", type=float, default=0.3,
@@ -475,8 +617,32 @@ def main(argv=None):
     if not files:
         ap.error("provide FILE(s) or use --all")
 
+    before = len(files)
+    if git_repo():
+        files = [f for f in files if git_tracked(f)]
+        if not files:
+            ap.error("no git-tracked .md/.tex files to process")
+        if len(files) < before:
+            print("note: skipping {} untracked file(s); only files tracked "
+                  "by git are processed".format(before - len(files)),
+                  file=sys.stderr)
+    elif not args.all:
+        print("note: not in a git work tree; change detection and the "
+              "git-tracking filter are disabled", file=sys.stderr)
+
     if args.compile_only:
         for src in files:
+            tag = None
+            if os.path.isfile(src):
+                with open(src, encoding="utf-8") as fh:
+                    tag = read_tag(fh.read())
+            pdf = os.path.splitext(src)[0] + ".pdf"
+            if (tag and os.path.isfile(pdf)
+                    and (git_unchanged_since(src, tag[1])
+                         or git_unmodified(src))):
+                print("{} -> SKIP (unchanged since {})".format(
+                    src, tag[1][:8]))
+                continue
             ok, detail = compile_pdf(src)
             print("{} -> {}".format(src, "OK" if ok else "FAILED"))
             if not ok:
@@ -485,6 +651,20 @@ def main(argv=None):
 
     if not args.to:
         ap.error("-t/--to is required for translation")
+
+    api_key = args.api_key or os.environ.get(API_KEY_ENV)
+    if args.api_key_file:
+        try:
+            res = subprocess.run(["gpg", "-d", args.api_key_file],
+                                 capture_output=True, text=True, check=True)
+            api_key = res.stdout.strip()
+        except FileNotFoundError:
+            ap.error("gpg not found on PATH (needed for --api-key-file)")
+        except subprocess.CalledProcessError as exc:
+            ap.error("gpg -d {} failed: {}".format(
+                args.api_key_file, exc.stderr.strip() or exc))
+    if api_key:
+        print("using paid Google Cloud Translation API v2")
 
     for src in files:
         dst = out_path(src, args.to, args.out_dir)
@@ -495,15 +675,32 @@ def main(argv=None):
         print("{} -> {}".format(src, dst))
         if args.dry_run:
             continue
+        if os.path.isfile(dst):
+            with open(dst, encoding="utf-8") as fh:
+                tag = read_tag(fh.read())
+            if (tag and tag[0] == src
+                    and git_unchanged_since(src, tag[1])):
+                print("  unchanged since {}, skipping translation".format(
+                    tag[1][:8]))
+                if args.compile:
+                    ok, detail = compile_pdf(dst)
+                    print("  compile: {} -> {}".format(
+                        "OK" if ok else "FAILED", detail))
+                continue
         with open(src, encoding="utf-8") as fh:
             content = fh.read()
         if ext == ".md":
             result = translate_markdown(content, args.source, args.to,
                                         args.delay,
-                                        update_anchors=not args.no_anchors)
+                                        update_anchors=not args.no_anchors,
+                                        api_key=api_key)
         else:
             result = translate_tex(content, args.source, args.to, args.delay,
-                                   patch_babel_flag=not args.no_babel)
+                                   patch_babel_flag=not args.no_babel,
+                                   api_key=api_key)
+        commit = git_commit_of(src)
+        if commit:
+            result = prepend_tag(ext, result, src, commit)
         with open(dst, "w", encoding="utf-8") as fh:
             fh.write(result)
         print("  wrote {} bytes".format(len(result.encode("utf-8"))))
