@@ -1,0 +1,90 @@
+% translate_docs: ./manuals/welcome_precon.tex @ eb27b1ebb3809a46903ee5a2e407cdde2df878c2
+\documentclass[superscriptaddress,onecolumn,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[loose]{units}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{braket}
+% \usepackage[caption=false]{subfig}
+\usepackage{subcaption}
+\usepackage[german]{babel}
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+    \@ifundefined{alias@\string#1}
+      {\ORIGselectlanguage{#1}}
+      {\begingroup\edef\x{\endgroup
+         \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{de}{german}
+
+
+\begin{document}
+\selectlanguage{de}
+
+\title{Vielen Dank für Ihre Bestellung!}
+\author{Electroniq Buttons Boutique}
+\email{support@electroniqbuttons.com}
+\date{\today}
+
+\maketitle
+
+Hallo! Vielen Dank für Ihre Bestellung eines manuellen Vorkonditionierungskits! Es war ein aufregender Weg: Im März haben wir die für die Vorkonditionierung notwendigen CAN-Nachrichten isoliert, und heute versenden wir Ihr Kit. Wir lernen ständig dazu und freuen uns daher über jedes Feedback: Schreiben Sie uns einfach eine E-Mail an \href{mailto:info@electroniqbuttons.com}{info@electroniqbuttons.com}Uns ist es außerdem wichtig, dass alles funktioniert. Bitte senden Sie uns eine E-Mail an \href{mailto:support@electroniqbuttons.com}{support@electroniqbuttons.com} falls das nicht der Fall ist. 
+
+Im Vorbereitungsset enthalten:
+{\small
+\begin{enumerate}
+  \item 1 WiCAN-OBD-C3 wurde mit der neuesten stabilen Firmware geflasht
+  \item 1 maßgefertigter Kabelbaum für das Autoradio
+  \item Montagezubehör: 
+    \begin{enumerate}
+      \item 1 70-mm-OBD-Halterung
+      \item 2 Stück doppelseitiges Klebeband (1 Stück extra für den Fall, dass etwas schiefgeht; kontaktieren Sie uns per E-Mail, wenn Sie mehr benötigen)
+      \item 4 Kabelbinder
+    \end{enumerate}
+  \item (falls ausgewählt) Installationswerkzeuge:
+    \begin{enumerate}
+      \item 4-teiliges Werkzeugset zum Entfernen von Zierleisten
+      \item 1 Phillips \#2-Kopf-Inbusschlüssel
+    \end{enumerate}
+\end{enumerate}
+}
+
+\begin{figure}[h]
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/install_guides.png} 
+    \caption{Installationsanleitungen \label{subfig:qr:guides}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/manual.png} 
+    \caption{Handbuch \label{subfig:qr:manual}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/email_list.png} 
+    \caption{Anmeldung zur E-Mail-Liste \label{subfig:qr:email}}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \includegraphics[height=1.95in]{photos/fluxer.png} 
+    \caption{Fluxer Community Einladung \label{subfig:qr:fluxer}}
+  \end{subfigure}
+\end{figure}
+Bitte lesen Sie die Installationsanleitungen (\ref{subfig:qr:guides}) und das Handbuch (\ref{subfig:qr:manual}Beachten Sie, dass es sich um dynamische Dokumente handelt, die regelmäßig aktualisiert werden.
+
+Wir werden zahlreiche Firmware-Updates veröffentlichen, daher hoffen wir, dass Sie sich entweder unserem oder unserem \href{https://docs.google.com/forms/d/e/1FAIpQLSd8GtjELMu9Nn59Qep1Qt1Ey02MGxPplVcpOBm7KX2CQ7S9JQ/viewform?usp=sharing&ouid=113251294956098361139}{E-Mail-Liste} (\ref{subfig:qr:email}) oder \href{https://fluxer.gg/8FV7gPtN}{Fluxer-Community} (\ref{subfig:qr:fluxer}Um Benachrichtigungen über zukünftige Updates zu erhalten. Viel Spaß beim Vorbereiten!
+
+\bibliographystyle{apsrev4-1}
+\bibliography{stemh_model}{}
+\end{document}

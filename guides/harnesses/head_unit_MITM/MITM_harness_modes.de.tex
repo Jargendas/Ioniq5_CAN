@@ -1,0 +1,126 @@
+% translate_docs: ./harnesses/head_unit_MITM/MITM_harness_modes.tex @ 29e94aaf9f3845ae60e234ebbe51f401b08b7c2d
+\documentclass[superscriptaddress,onecolumn,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[loose]{units}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{braket}
+\usepackage[caption=false]{subfig}
+\usepackage[german]{babel}
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+    \@ifundefined{alias@\string#1}
+      {\ORIGselectlanguage{#1}}
+      {\begingroup\edef\x{\endgroup
+         \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{de}{german}
+
+
+\begin{document}
+\selectlanguage{de}
+
+\begin{abstract}
+  Diese Anleitung führt Sie durch die notwendigen Schritte zum Umschalten des MITM-Modus (Man-in-the-Middle) Ihres Autoradios zwischen MITM- und Parallelmodus. Dies ist ein Schritt zur Fehlerbehebung oder für fortgeschrittene Heimwerker. Siehe auch \href{https://youtu.be/sWzxWfUpCfs}{Videoanleitung}.
+\end{abstract}
+\title{Anleitung zum Umschalten des Mann-in-der-Mitte-Modus am Headunit}
+\author{Electroniq Buttons Boutique}
+\email{support@electroniqbuttons.com}
+% \affiliation{\GOE}
+% \author{Benjamin J. McMorran}
+% \email{mcmorran@uoregon.edu}
+% \affiliation{\UO}
+\date{\today}
+
+\maketitle
+
+\section{Einführung}
+Das in Abbildung 1 dargestellte Kopfeinheiten-Man-in-the-Middle-Gurtzeug (MITM). \ref{subfig:overview:harness}hat zwei mögliche Modi:
+\begin{enumerate}
+  \item Mann-in-der-Mitte oder Serien \label{enum:MITM}
+  \item parallel \label{enum:parallel}
+\end{enumerate}
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:overview:harness}
+  \includegraphics[height=1.95in]{photos/whole_harness.jpg} }
+  \subfloat[]{\label{subfig:overview:shunt_cap_labeled}
+  \includegraphics[height=1.95in]{photos/labeled_connectors_MITM_harness.jpg} }
+   \caption{(a) Kabelbaum für die Mann-in-der-Mitte-Verbindung. (b) Übersicht der Steckverbinder mit Shuntkappe. \label{fig:overview}}
+\end{figure}
+Im Man-in-the-Middle-Modus sind die CAN-Kommunikationsleitungen für das Steuergerät und das Fahrzeug physisch getrennt. Ein an den OBD-Anschluss angeschlossener Mikrocontroller dient dazu, gezielt Nachrichten zwischen den beiden Geräten auszutauschen. Im Parallelmodus sind die CAN-Kommunikationsleitungen normal verbunden, und beide CAN-Pin-Sets am OBD-Anschluss sind identisch und sowohl mit dem Fahrzeug als auch mit dem Steuergerät verbunden. Der Mikrocontroller ist parallel zum CAN-Bus geschaltet, ähnlich wie viele Steuergeräte (ECUs), und kann Nachrichten senden und empfangen, die mit allen Steuergeräten am Bus geteilt werden. 
+
+Der Kabelbaum ist primär für den Einsatz im MITM-Modus ausgelegt, bietet aber aus verschiedenen Gründen auch einen Parallelmodus:
+\begin{enumerate}
+  \item Fehlerbehebung
+  \item Kompatibilität
+\end{enumerate}
+Sollte beispielsweise der MITM-Mechanismus ausfallen, können Sie problemlos in den Parallelmodus wechseln und Ihr Autoradio weiterhin normal nutzen, ohne den Kabelbaum ausbauen zu müssen. Darüber hinaus verfügen manche Mikrocontroller nur über einen CAN-Pin und können daher keine Datenweiterleitung durchführen. In diesen Fällen dient der Parallelmodus der Kompatibilität.
+
+\section{Wie man umschaltet}
+Zum Umschalten müssen Sie lediglich die weiblichen Shunt-Stecker und Shunt-Kappen, die sich am nächsten zum OBD-Anschluss befinden, vertauschen. Um von MITM auf Parallelschaltung umzuschalten, gehen Sie wie folgt vor:
+\begin{enumerate}
+  \item Prüfen Sie, ob der aktuelle Kabelbaummodus MITM ist (Abbildung \ref{subfig:shunt:MITM})
+  \item Trennen Sie den weiblichen Shunt (orange und blaue Drähte, mit „B1“ gekennzeichnet) (Abbildung \ref{subfig:shunt:female_disconnect})
+  \item Den weiblichen Shunt-Stecker (weiße Drähte, mit „A2“ gekennzeichnet) abziehen (Abbildung \ref{subfig:shunt:cap_removed})
+  \item Verbinden Sie den weiblichen Shunt mit dem männlichen Shunt (grüne und weiße Drähte, mit „A1“ gekennzeichnet) (Abbildung \ref{subfig:shunt:parallel})
+  \item Verbinden Sie die weibliche Shuntkappe mit der männlichen Shuntkappe (weiße Drähte, mit „B2“ gekennzeichnet) (Abbildung \ref{subfig:shunt:parallel})
+\end{enumerate}
+Um den Modus umzukehren, befolgen Sie einfach diese Anweisungen in umgekehrter Reihenfolge!
+\begin{figure}[h]
+  \subfloat[]{\label{subfig:shunt:MITM}
+  \includegraphics[height=0.95in]{photos/MITM.jpg} }
+  \subfloat[]{\label{subfig:shunt:female_shunt_in_cap}
+  \includegraphics[height=0.95in]{photos/female_shunt_in_shunt_cap.jpg} }
+  \subfloat[]{\label{subfig:shunt:female_disconnect}
+  \includegraphics[height=0.95in]{photos/female_shunt_disconnected.jpg} } \\
+  \subfloat[]{\label{subfig:shunt:cap_removed}
+  \includegraphics[height=0.95in]{photos/cap_removed.jpg} }
+  \subfloat[]{\label{subfig:shunt:parallel}
+  \includegraphics[height=0.95in]{photos/parallel.jpg} }
+   \caption{(a-b) Weiblicher Shuntverschluss: anfänglicher MITM-Modus. (c) Trennen des weiblichen Shunts. (d) Trennen des weiblichen Shuntverschlusses. (e) Parallelbetrieb. \label{fig:shunts}}
+\end{figure}
+% %   \includegraphics[width=1.8in]{full_grating_nocblabel.png} }
+% %   \begin{minipage}{1.5in}
+% %     \vspace{-0.6in}
+% \section{Experiment}
+% 
+% \begin{figure}[h]
+%   \subfloat[]{\label{subfig:comparison:amp12}
+%   \includegraphics[height=0.95in]{Capture12_amp_corrected_with_own_vacuum.png} }
+%   \subfloat[]{\label{subfig:comparison:phase12}
+%   \includegraphics[height=0.95in]{Capture12_phase_corrected_with_own_vacuum_labeled.png} }
+%   \subfloat[]{\label{subfig:comparison:haadf12}
+%   \includegraphics[height=0.95in]{Capture12_HAADF.png} } \\
+%   \subfloat[]{\label{subfig:comparison:amp17}
+%   \includegraphics[height=0.85in]{Capture17_amp_corrected_with_own_vacuum.png} }
+%   \subfloat[]{\label{subfig:comparison:phase17}
+%   \includegraphics[height=0.85in]{Capture17_phase_corrected_with_own_vacuum_labeled.png} }
+%   \subfloat[]{\label{subfig:comparison:haadf17}
+%   \includegraphics[height=0.85in]{Capture17_HAADF.png} } \\
+%   \subfloat[]{\label{subfig:comparison:lacey_lineplot}
+%   \includegraphics[height=1.1in]{STEMh-HAADF_comparison_lacey_carbon.png} }
+%   \subfloat[]{\label{subfig:comparison:CdTe_lineplot}
+%   \includegraphics[height=1.1in]{STEMh-HAADF_comparison_CdTe_noinset.png} }\\
+%   \caption{Comparison of micrographs recorded by STEMH and ADF-STEM on lacey carbon and semidconducting nanoparticles. (a,d) Amplitude measured by STEMH. (b,e) Phase measured by STEMH; line profiles in (g,h) are taken along the white arrow and averaged over the width of the box. (c,f) Simultaneously acquired ADF. (g) Comparison of phase (red) with ADF (blue) on lacey carbon edge. Inset: zoom-in to show noise levels. (h) Same as (g) on the edge of a semiconducting nanoparticle. \label{fig:comparison}}%Inset: zoomed-in plot of the vacuum region just outside the particle. The phase outside the particle is fit well by an exponential decay (green). \label{fig:comparison}}
+%   % starting at the edge of the particle, as determined by the maximum gradient of the ADF. 
+% \end{figure}
+% 
+% 
+\appendix 
+\bibliographystyle{apsrev4-1}
+\bibliography{stemh_model}{}
+\end{document}
